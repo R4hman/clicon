@@ -1,0 +1,287 @@
+{
+  "categories": [
+    {
+      "id": "cat_001",
+      "name": "Computer & Laptop",
+      "url": "/computer"
+    },
+    {
+      "id": "cat_002",
+      "name": "Computer Accessories",
+      "url": "/comp-accessories"
+    },
+    {
+      "id": "cat_003",
+      "name": "Smartphone",
+      "subcategories": [
+        "All",
+        "Iphone",
+        "Samsung",
+        "Realme",
+        "Xiaomi",
+        "Oppo",
+        "Vivo",
+        "OnePlus",
+        "Huawei",
+        "Infinix",
+        "Tecno"
+      ],
+      "url": "/smartphones",
+      "products": [
+        {
+          "id": "prod__001",
+          "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+          "price": 100,
+          "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+          "img": [
+            "../../public/phone_double.png",
+            "../../public/phone_double.png",
+            "../../public/phone_double.png"
+          ],
+          "soldOut": false,
+          "discount": 19,
+          "hot": true,
+          "rating": 5,
+          "votes": 656
+        },
+        {
+          "id": "prod__002",
+          "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+          "price": 100,
+          "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+          "img": [
+            "../../public/phone_double.png",
+            "../../public/phone_double.png",
+            "../../public/phone_double.png"
+          ],
+          "soldOut": false,
+          "discount": 19,
+          "hot": true,
+          "rating": 5,
+          "votes": 656
+        },
+        {
+          "id": "prod__003",
+          "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+          "price": 100,
+          "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+          "img": [
+            "../../public/phone_double.png",
+            "../../public/phone_double.png",
+            "../../public/phone_double.png"
+          ],
+          "soldOut": false,
+          "discount": 19,
+          "hot": true,
+          "rating": 5,
+          "votes": 656
+        },
+        {
+          "id": "prod__004",
+          "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+          "price": 100,
+          "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+          "img": [
+            "../../public/phone_double.png",
+            "../../public/phone_double.png",
+            "../../public/phone_double.png"
+          ],
+          "soldOut": false,
+          "discount": 19,
+          "hot": true,
+          "rating": 5,
+          "votes": 656
+        }
+      ],
+      "mainDiscount": {
+        "id": "discount_xiaomi_001",
+        "img": "../../public/phone_double.png",
+        "title": "21% Discount",
+        "subtitle": "Escape the noise, It’s time to hear the magic with Xiaomi Earbuds.",
+        "price": 99,
+        "url": ""
+      }
+    },
+    {
+      "id": "cat_004",
+      "name": "Headphone",
+      "url": "/headphone"
+    },
+    {
+      "id": "cat_005",
+      "name": "Mobile Accessories",
+      "url": "/mobile-accessories"
+    },
+    {
+      "id": "cat_006",
+      "name": "Gaming Console",
+      "url": "/gaming"
+    },
+    {
+      "id": "cat_007",
+      "name": "Camera Photo",
+      "url": "/camera-photo"
+    },
+    {
+      "id": "cat_008",
+      "name": "TV & Home Appliances",
+      "url": "/tv-home"
+    },
+    {
+      "id": "cat_009",
+      "name": "Watchs & Accessories",
+      "url": "/watchs"
+    },
+    {
+      "id": "cat_010",
+      "name": "GPS & Navigation",
+      "url": "/gps-navigation"
+    },
+    {
+      "id": "cat_011",
+      "name": "Wearable Technology",
+      "url": "/wearable"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod__001",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/cnsl.png",
+        "../../public/cnsl.png",
+        "../../public/cnsl.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "headphone"
+    },
+    {
+      "id": "prod__002",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/phone2.png",
+        "../../public/phone2.png",
+        "../../public/phone2.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "headphone"
+    },
+    {
+      "id": "prod__003",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/phone_double.png",
+        "../../public/phone_double.png",
+        "../../public/phone_double.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "laptop"
+    },
+    {
+      "id": "prod__004",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": ["../../homepod.png", "../../homepod.png", "../../homepod.png"],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "laptop"
+    },
+    {
+      "id": "prod__005",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/cnsl.png",
+        "../../public/cnsl.png",
+        "../../public/cnsl.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "headphone"
+    },
+    {
+      "id": "prod__006",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/phone2.png",
+        "../../public/phone2.png",
+        "../../public/phone2.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656,
+      "category": "tv"
+    },
+    {
+      "id": "prod__007",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": [
+        "../../public/phone_double.png",
+        "../../public/phone_double.png",
+        "../../public/phone_double.png"
+      ],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656
+    },
+    {
+      "id": "prod__008",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": ["../../homepod.png", "../../homepod.png", "../../homepod.png"],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656
+    },
+    {
+      "id": "prod__009",
+      "title": "Bose Sport Earbuds - Wireless Earphones - Bluetooth In Ear...",
+      "price": 100,
+      "description": "Games built using the Xbox Series X|S development kit showcase unparalleled load times, visuals.",
+      "img": ["../../homepod.png", "../../homepod.png", "../../homepod.png"],
+      "soldOut": false,
+      "discount": 19,
+      "hot": true,
+      "rating": 5,
+      "votes": 656
+    }
+  ],
+  "favorites": []
+}

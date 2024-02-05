@@ -1,0 +1,27 @@
+{
+  "product": [
+    {
+      "id": "585da9b0-51c1-443a-8f51-cc24f05fc13f",
+      "name": "Dell Inspiron 15",
+      "category": { "id": 1, "name": "Computer & Laptop" },
+      "brand": { "id": 1, "name": "Dell" },
+      "sku": "1b608340-6fe3-4db9-9e14-618f2895cf28",
+      "description": "Dell Inspiron 15 is an ideal combination between performance and image. It's powered by an Intel Core i7 processor and 16GB RAM, fast storage with a 512GB SSD, and NVIDIA GTX 1650 graphics for fun gaming and creation. The 15.6-inch FHD screen brings stunning details to your eyes. This laptop is ideal for demanding users who require an independent work style and high performance for daily tasks. Dell Inspiron 15 also attracts attention with its colorful and stylish design. Work and fun come together!",
+      "rate": 1,
+      "viewCount": 0,
+      "sellerCount": 0,
+      "inStock": true,
+      "isSoldOut": false,
+      "isHot": true,
+      "isNew": true,
+      "salePrice": 1456,
+      "costPrice": 1125,
+      "discountedPrice": 1299,
+      "images": [
+        { "id": 1, "isPoster": true, "image_url": " " },
+        { "id": 2, "isPoster": false, "image_url": " " },
+        { "id": 3, "isPoster": false, "image_url": " " }
+      ]
+    }
+  ]
+}
