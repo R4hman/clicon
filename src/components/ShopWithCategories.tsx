@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import SwiperCarousel from "./reusable/SwiperCarousel";
 import { SwiperSlide } from "swiper/react";
 import { useCategories } from "@/hooks/useCategories";
 
-const ShopWithCategories: React.FC = () => {
+const ShopWithCategories: React.FC = (): ReactElement => {
   const { data, isLoading } = useCategories(
     "https://clicon.onrender.com/api/v1/categories"
   );

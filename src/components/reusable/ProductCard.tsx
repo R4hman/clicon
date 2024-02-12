@@ -8,6 +8,7 @@ import { addOrRemoveFavorites } from "@/app/features/favoriteSlice";
 import { addOrRemoveBasket } from "@/app/features/basketSlice";
 import ProductModal from "../ProductModal";
 import { RenderStars } from "./RenderStars";
+import { RootState } from "@/app/store";
 
 type TProductCard = {
   product: TProduct;
@@ -19,14 +20,13 @@ const ProductCard: React.FC<TProductCard> = ({
   main,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const favs = useAppSelector((state) => state.favorites.favorites);
-  const basket = useAppSelector((state) => state.basket.basket);
-  const inFavorite: boolean = favs.includes(product._id);
+  const favs = useAppSelector((state: RootState) => state.favorites.favorites);
+  const basket = useAppSelector((state: RootState) => state.basket.basket);
+  const inFavorite: boolean = !!favs.filter((item) => item._id === product._id)
+    .length;
 
-  console.log("gelen product", product);
-
-  const handleAddFavorites = (id: string): void => {
-    dispatch(addOrRemoveFavorites({ id }));
+  const handleAddFavorites = (product: TProduct): void => {
+    dispatch(addOrRemoveFavorites(product));
   };
   const handleAddBasket = (data: TProduct): void => {
     dispatch(addOrRemoveBasket(data));
@@ -50,7 +50,7 @@ const ProductCard: React.FC<TProductCard> = ({
           />
           <div className="invisible bg-transparent z-50  flex items-center gap-x-1 justify-center absolute inset-0 group-hover/item:visible  ">
             <span
-              onClick={handleAddFavorites.bind(null, product._id)}
+              onClick={handleAddFavorites.bind(null, product)}
               className="z-20 text-black bg-white group hover:bg-primary500 w-8 h-8 flex items-center justify-center transition-all rounded-full"
             >
               {inFavorite ? (

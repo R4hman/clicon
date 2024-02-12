@@ -8,6 +8,7 @@ type TUseCategory = {
 };
 
 export function useCategories(url: string): TUseCategory {
+  console.log("url: " + url);
   const { data, isLoading } = useQuery({
     queryKey: ["categories", url],
     queryFn: (url) => fetchData(url.queryKey[1]),

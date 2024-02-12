@@ -66,10 +66,12 @@ export type TProduct = {
   bestDiscountPercent: number;
   sellerCount: number;
   viewCount: number;
-  stockStatus: boolean;
+  // stockStatus: boolean;
+  stockCount: number;
   isHot: boolean;
   rate?: number;
   isFeature: boolean;
+  productCount?: number;
   __v: number;
 };
 

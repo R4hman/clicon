@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { TProduct } from "@/types";
 
 type TInitialState = {
-  favorites: string[];
+  favorites: TProduct[];
 };
 
 const initialState: TInitialState = {
@@ -13,13 +14,17 @@ export const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    addOrRemoveFavorites: (state, action: PayloadAction<{ id: string }>) => {
-      const { id } = action.payload;
-      if (!state.favorites.includes(id)) {
-        state.favorites.push(id);
+    addOrRemoveFavorites: (state, action: PayloadAction<TProduct>) => {
+      const { _id } = action.payload;
+      console.log("id: " + _id);
+      const item = state.favorites.find((fav) => fav._id === _id);
+
+      if (!item) {
+        state.favorites.push(action.payload);
       } else {
-        const index = state.favorites.indexOf(id);
-        state.favorites.splice(index, 1);
+        // const index = state.favorites.indexOf(_id);
+        // state.favorites.splice(index, 1);
+        state.favorites = state.favorites.filter((fav) => fav._id !== _id);
       }
     },
     // removeFavorites: (state, action: PayloadAction<{ id: string }>) => {

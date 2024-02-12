@@ -3,13 +3,16 @@ import { TSignUp } from "../types";
 export const login = async (data: TSignUp): Promise<unknown> => {
   try {
     console.log("data", data);
-    const res = await fetch("https://clicon.onrender.com/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      "https://clicon.onrender.com/api/v1/auth/verify-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const responseData = await res.json();
     console.log("response", responseData);
     if (!res.ok) {

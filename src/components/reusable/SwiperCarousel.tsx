@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
@@ -25,14 +25,15 @@ const SwiperCarousel: React.FC<TSwiperCarouselProps<TSlider | TCarousel>> = ({
   hasDots,
   hasPrevNext,
   slidesPerView = 1,
-}) => {
+}): ReactElement => {
   return (
-    <div>
+    <div className="h-full">
       <Swiper
         // className="basis-1"
         style={{
           // width: "100%",
           height: "100%",
+
           overflow: "visible",
           overflowX: "clip",
         }}
@@ -44,7 +45,7 @@ const SwiperCarousel: React.FC<TSwiperCarouselProps<TSlider | TCarousel>> = ({
         // scrollbar={{ draggable: true }}
         // onSlideChange={() => console.log("slide change")}
       >
-        {dataToMap.map(render)}
+        {dataToMap?.map(render)}
       </Swiper>
     </div>
   );

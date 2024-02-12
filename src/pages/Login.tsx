@@ -9,6 +9,8 @@ import { z } from "zod";
 import ReusableButton from "@/components/reusable/ReusableButton";
 import { Link, useNavigate } from "react-router-dom";
 import { TLogin } from "@/types";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/services/auth/apiLogin";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -32,8 +34,19 @@ const Login: React.FC<TLogin> = ({ type, setType }) => {
     resolver: zodResolver(loginSchema),
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      console.log("success data", data);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
   const onSubmit = (data: TLoginSchema) => {
     console.log("login data", data);
+    mutate(data);
 
     reset();
   };

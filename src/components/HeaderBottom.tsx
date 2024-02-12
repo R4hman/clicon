@@ -19,7 +19,7 @@ const sets = [
   },
   {
     icon: <DiGitCompare />,
-    url: "",
+    url: "/compare",
     name: "Compare",
   },
   {
@@ -51,7 +51,7 @@ const HeaderBottom: React.FC = () => {
               >
                 <span className="w-4 h-4 text-gray-600 ">{item.icon}</span>
                 <span className="text-xs md:text-sm text-gray-600">
-                  {item.name}
+                  <Link to={item.url}>{item.name}</Link>
                 </span>
               </div>
             ))}

@@ -7,6 +7,16 @@ type TSmallCard = {
 
 const SmallProductCard: React.FC<TSmallCard> = ({ product }) => {
   console.log("product", product);
+  const price = product.productCount
+    ? (
+        product.productCount *
+        (product.discountPercent
+          ? product.salePrice -
+            (product.salePrice * product.discountPercent) / 100
+          : product.salePrice)
+      ).toFixed(2)
+    : 0;
+  console.log("price", price);
   return (
     <article className="flex items-center p-3 gap-2.5 border rounded-[3px] border-gray-100">
       <img
@@ -19,13 +29,13 @@ const SmallProductCard: React.FC<TSmallCard> = ({ product }) => {
         {/* <h5 className="text-[14px] font-normal text-gray-900">
           {product.description}
         </h5> */}
-        <span className="text-sm font-semibold text-secondary500">
-          $
-          {product.discountPercent
-            ? product.salePrice -
-              (product.salePrice * product.discountPercent) / 100
-            : product.salePrice}
-        </span>
+
+        <div className="flex items-center gap-x-0.5">
+          <span className="text-sm">{product.productCount}</span>×
+          <span className="text-sm font-semibold text-secondary500">
+            ₼ {price}
+          </span>{" "}
+        </div>
       </div>
     </article>
   );

@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,21 +18,87 @@ import { TProduct } from "@/types";
 import { FaStar } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
 import SelectComponent from "./reusable/SelectComponent";
+import ReusableButton from "./reusable/ReusableButton";
+import { SlBasket } from "react-icons/sl";
+import { FaRegHeart } from "react-icons/fa";
+import { GoSync } from "react-icons/go";
+import { useDispatch } from "react-redux";
+import {
+  decreaseProductCount,
+  increaseProductCount,
+} from "@/app/features/basketSlice";
+import { useSelector } from "react-redux";
+import {
+  useProductByModal,
+  useProducts,
+  useSingleProduct,
+} from "@/hooks/useProducts";
+import { Link } from "react-router-dom";
+import { RootState } from "@/app/store";
+import ModalImage from "./ModalImage";
 
 type TProductModal = {
   product: TProduct;
 };
 
-const ProductModal: React.FC<TProductModal> = ({ product }) => {
+function hasProperties(obj: { [key: string]: string }): boolean {
+  return Object.keys(obj).length > 0;
+}
+
+function stringForQuery(obj: { [key: string]: string }): string {
+  let str = "";
+  console.log(Object.entries(obj));
+  Object.entries(obj).forEach((key) => (str = str + `&${key[0]}=${key[1]}`));
+  //
+  return str;
+}
+
+const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
   const [colorRadio, setColorRadio] = useState<string>("");
+
   const [productValues, setProductValues] = useState<Record<string, string>>(
     {}
   );
+
+  const { data: singleProduct, isLoading: isProductLoading } = useSingleProduct(
+    `https://clicon.onrender.com/api/v1/products/${product._id}`
+  );
+
+  let str = stringForQuery(productValues);
+  str = str.replace("&", "?");
+  str = `${product.seriaNo}${str}`;
+
+  console.log("str: " + str, product.seriaNo);
+  console.log("product ", product);
+
+  const { data: productByModal, isLoading } = useProductByModal(
+    `${str}`,
+    hasProperties(productValues)
+  );
+
+  console.log("enableed data", productByModal);
+
+  const dispatch = useDispatch();
   const isRadioSelected = (value: string): boolean => colorRadio === value;
   const handleRadioClick = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setColorRadio(e.currentTarget.value);
 
-  console.log("productValues", productValues);
+  const basket = useSelector((state: RootState) => state.basket.basket);
+  const productItemCount = basket.find(
+    (item) => item._id === product._id
+  )?.productCount;
+
+  if (isProductLoading) {
+    return <div>loading..</div>;
+  }
+  const images = productByModal
+    ? productByModal.product?.images
+    : product?.images;
+  console.log("productValue", productValues);
+
+  console.log("singleProduct", singleProduct);
+
+  console.log("images", images);
 
   return (
     <Dialog modal>
@@ -36,10 +108,7 @@ const ProductModal: React.FC<TProductModal> = ({ product }) => {
         </span>
       </DialogTrigger>
       <DialogContent className="bg-white rounded-[4px]  max-w-[62.5rem] p-10 flex  gap-x-14">
-        <div className="flex flex-1 w-[500px] bg-red-800 flex-col gap-y-6">
-          <img style={{ width: "600px" }} src="./public/laptop.png" alt="" />
-          eaea
-        </div>
+        <ModalImage images={images} />
         <div className="flex-1 w-[500px]">
           <div className="flex items-center gap-x-2 mb-2">
             <div className="flex items-center">
@@ -81,7 +150,6 @@ const ProductModal: React.FC<TProductModal> = ({ product }) => {
           <div className="w-full h-[1.3px] my-6 bg-gray100"></div>
           <div className="flex justify-between  flex-wrap">
             <div>
-              <span>Color</span>
               {product.colors?.map((color) => (
                 <input
                   className="accent-green-500 focus:accent-red-500"
@@ -94,15 +162,63 @@ const ProductModal: React.FC<TProductModal> = ({ product }) => {
                 />
               ))}
             </div>
-            {product.features.map((feature) => (
+            {singleProduct.product.brandId.features.map((feature) => (
               <SelectComponent
                 setProductValues={setProductValues}
                 productValues={productValues}
                 key={uuidv4()}
                 title={feature.name}
-                data={[feature.option]}
+                data={feature.option}
               />
             ))}
+          </div>
+          <div className="flex items-center gap-x-3">
+            <div className="border border-gray-300 rounded-md p-3 flex items-center gap-x-4">
+              <span
+                className="text-[18px] cursor-pointer"
+                onClick={() => dispatch(decreaseProductCount(product))}
+              >
+                -
+              </span>
+              <span className="text-[18px]">{productItemCount || 0} </span>
+              <span
+                className="text-[18px] cursor-pointer"
+                onClick={() => dispatch(increaseProductCount(product))}
+              >
+                +
+              </span>
+            </div>
+            <div className="w-[200px]">
+              <ReusableButton textColor="text-white" bgColor={"bg-primary500"}>
+                ADD TO CARD
+                <SlBasket className="w-5 h-4" />
+              </ReusableButton>
+            </div>
+            <div className="w-[200px]">
+              <ReusableButton
+                textColor="text-primary500"
+                borderColor="border-primary500"
+                bgColor={"bg-white"}
+              >
+                BUY NOW
+              </ReusableButton>
+            </div>
+          </div>
+          <div className="flex items-center gap-x-6 my-6">
+            <div className="flex items-center gap-x-2">
+              <FaRegHeart />
+              <span>Add to Wishlist</span>
+            </div>
+            <div>
+              <Link className="flex items-center gap-x-2" to="/compare">
+                <GoSync className="text-black" />
+                Add to Compare
+              </Link>
+            </div>
+          </div>
+          <div className="border border-gray-300 rounded-[5px] p-4">
+            <h6>100% Guarantee Safe Checkout</h6>
+            <div className="flex items-center"></div>
           </div>
         </div>
       </DialogContent>

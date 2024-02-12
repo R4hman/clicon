@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import {
   Select,
@@ -23,11 +23,17 @@ const SelectComponent: React.FC<TSelectComponent> = ({
   title,
   setProductValues,
   productValues,
-}) => {
+}): ReactElement => {
   const handleSelectChange = (val: string): void => {
+    console.log("value: " + title, val);
+    const newObj = productValues;
+    console.log("newObj title: " + newObj[title]);
+    newObj[title] = val;
+    console.log("newObj: " + Object.keys(newObj));
+    setProductValues(newObj);
     setProductValues((prev) => ({
-      [`${title}`]: val,
       ...prev,
+      [title]: val,
     }));
   };
   return (
@@ -38,7 +44,7 @@ const SelectComponent: React.FC<TSelectComponent> = ({
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={title} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="bg-white">
         {data.map((item) => (
           <SelectItem key={uuidv4()} value={item}>
             {item}
