@@ -120,3 +120,8 @@ export type TFilterOptions = {
   page_size: string;
   price: string;
 };
+
+export type TVerifyEmail = {
+  verificationToken: string;
+  email: string;
+};

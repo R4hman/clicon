@@ -4,7 +4,7 @@ import React from "react";
 import { SlBasket } from "react-icons/sl";
 import { useSelector } from "react-redux";
 
-const getImage = (arr: any[]): string => {
+export const getImage = (arr: any[]): string => {
   const image = arr.find((item) => item.imageStatus);
 
   return image.imageUrl;

@@ -1,4 +1,6 @@
+import ReusableButton from "@/components/reusable/ReusableButton";
 import { FC, ReactElement } from "react";
+import { FaArrowRight } from "react-icons/fa";
 
 const Checkout: FC = (): ReactElement => {
   return (
@@ -76,21 +78,30 @@ const Checkout: FC = (): ReactElement => {
           <h4 className="mb-5">Order Summary</h4>
           <div className="flex flex-col space-y-3">
             <h4 className="flex items-center justify-between">
-              Sub-total <span>320</span>
+              Sub-total <span>₼320</span>
             </h4>
             <h4 className="flex items-center justify-between">
-              Sub-total <span>320</span>
+              Shipping <span>Free</span>
             </h4>
             <h4 className="flex items-center justify-between">
-              Sub-total <span>320</span>
+              Discount <span>₼30</span>
             </h4>
             <h4 className="flex items-center justify-between">
-              Sub-total <span>320</span>
-            </h4>
-            <h4 className="flex items-center justify-between">
-              Sub-total <span>320</span>
+              Tax <span>₼320</span>
             </h4>
           </div>
+          <div className="w-full h-[1.5px] bg-gray-200 my-5"></div>
+          <h4 className="flex items-center justify-between mb-5">
+            Total <span>₼320</span>
+          </h4>
+          <ReusableButton
+            // bgColor={isSubmitting ? "bg-gray-500" : "bg-primary500"}
+            bgColor={"bg-primary500"}
+            // disabled={isSubmitting}
+            textColor="text-white"
+          >
+            PLACE ORDER <FaArrowRight />
+          </ReusableButton>
         </div>
       </div>
     </section>

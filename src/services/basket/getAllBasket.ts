@@ -1,14 +1,8 @@
 import toast from "react-hot-toast";
 import { TSignUp } from "../../types";
-export const login = async (data: TSignUp): Promise<unknown> => {
+export const getAllBasket = async (): Promise<unknown> => {
   try {
-    const res = await fetch("https://clicon.onrender.com/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch("https://clicon.onrender.com/api/v1/basketItems");
     const responseData = await res.json();
     if (!res.ok) {
       console.log("Res", res);

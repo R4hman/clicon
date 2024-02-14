@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { TRegister } from "../types";
+import { TRegister } from "../../types";
 export const register = async (data: TRegister): Promise<unknown> => {
   try {
     console.log("data", data);
@@ -19,10 +19,13 @@ export const register = async (data: TRegister): Promise<unknown> => {
       console.log("Res", res);
       throw new Error(`HTTP error! Status: ${res.status}, ${responseData.msg}`);
     }
+    toast.success(responseData.msg);
     return responseData;
-  } catch (error: unknown) {
+  } catch (error) {
     console.error("Error during registration:", error);
-    toast.error(error);
+    toast.error(
+      typeof error === "string" ? error : (error as { message: string }).message
+    );
     throw error;
   }
 };

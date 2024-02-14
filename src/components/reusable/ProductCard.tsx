@@ -9,6 +9,7 @@ import { addOrRemoveBasket } from "@/app/features/basketSlice";
 import ProductModal from "../ProductModal";
 import { RenderStars } from "./RenderStars";
 import { RootState } from "@/app/store";
+import { useAddBasket } from "@/hooks/basket/useAddBasket";
 
 type TProductCard = {
   product: TProduct;
@@ -22,6 +23,7 @@ const ProductCard: React.FC<TProductCard> = ({
   const dispatch = useAppDispatch();
   const favs = useAppSelector((state: RootState) => state.favorites.favorites);
   const basket = useAppSelector((state: RootState) => state.basket.basket);
+  const { mutate, isPending } = useAddBasket();
   const inFavorite: boolean = !!favs.filter((item) => item._id === product._id)
     .length;
 
@@ -29,7 +31,9 @@ const ProductCard: React.FC<TProductCard> = ({
     dispatch(addOrRemoveFavorites(product));
   };
   const handleAddBasket = (data: TProduct): void => {
-    dispatch(addOrRemoveBasket(data));
+    // dispatch(addOrRemoveBasket(data));
+    console.log("handleAddBasket", data);
+    // mutate()
   };
 
   return (

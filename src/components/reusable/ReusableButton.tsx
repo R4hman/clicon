@@ -7,6 +7,7 @@ type TReusableButton = {
   disabled?: boolean;
   bgColor?: string;
   borderColor?: string;
+  onClick?: () => void;
 };
 
 const ReusableButton: React.FC<TReusableButton> = ({
@@ -16,11 +17,13 @@ const ReusableButton: React.FC<TReusableButton> = ({
   disabled,
   bgColor,
   borderColor,
+  onClick,
 }) => {
   const width = size ? `w-[${size}px]` : "";
 
   return (
     <button
+      onClick={onClick}
       disabled={disabled}
       className={` ${bgColor} ${borderColor} ${
         borderColor && "border"

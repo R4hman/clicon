@@ -38,6 +38,7 @@ const Login: React.FC<TLogin> = ({ type, setType }) => {
     mutationFn: login,
     onSuccess: (data) => {
       console.log("success data", data);
+      navigate("/");
     },
     onError: (err) => {
       console.log(err);
@@ -132,8 +133,8 @@ const Login: React.FC<TLogin> = ({ type, setType }) => {
             )}
 
             <ReusableButton
-              bgColor={isSubmitting ? "bg-gray-500" : "bg-primary500"}
-              disabled={isSubmitting}
+              bgColor={isPending ? "bg-gray-500" : "bg-primary500"}
+              disabled={isPending}
               textColor="text-white"
             >
               SIGN IN <FaArrowRight />

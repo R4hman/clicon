@@ -15,7 +15,9 @@ type TSignUp = TLogin;
 
 const signUpSchema = z
   .object({
-    name: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    userName: z.string(),
     email: z.string().email(),
     password: z.string().min(10, "Password must be at least 10 characters"),
     confirmPassword: z.string(),
@@ -52,8 +54,17 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }) => {
       getValues("password"),
       watch("confirmPassword")
     );
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("");
+      }, 3000);
+    });
 
-    registerApi(data).then((res) => console.log("res", res));
+    registerApi(data).then((res) => {
+      if (res.msg) {
+        navigate("/login");
+      }
+    });
 
     // reset();
   };
@@ -98,82 +109,117 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }) => {
             className=" w-full p-10 rounded-[10px]"
             onSubmit={handleSubmit((data: TSignUpSchema) => onSubmit(data))}
           >
-            <div className="flex flex-col gap-y-3 mb-3">
-              <label htmlFor="name">Ad</label>
+            <div className="flex items-center">
+              <div className="flex flex-col gap-y-3 mb-3">
+                <label htmlFor="name">Ad</label>
 
-              <input
-                {...register("name")}
-                type="text"
-                placeholder="Ad"
-                className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
-              />
-              {errors.name && (
-                <p className="text-red-500">{`${errors.name.message}`}</p>
-              )}
+                <input
+                  {...register("firstName")}
+                  type="text"
+                  placeholder="Ad"
+                  className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
+                />
+                {errors.firstName && (
+                  <p className="text-red-500">{`${errors.firstName.message}`}</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-y-3 mb-3">
+                <label htmlFor="name">Soyad</label>
+
+                <input
+                  {...register("lastName")}
+                  type="text"
+                  placeholder="Soyad"
+                  className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
+                />
+                {errors.lastName && (
+                  <p className="text-red-500">{`${errors.lastName.message}`}</p>
+                )}
+              </div>
             </div>
 
-            <div className="flex flex-col gap-y-3 mb-3">
-              <label htmlFor="email">Email</label>
-              <input
-                {...register("email")}
-                type="email"
-                placeholder="Email"
-                className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
-              />
-              {errors.email && (
-                <p className="text-red-500">{`${errors.email.message}`}</p>
-              )}
+            <div className="flex items-center">
+              <div className="flex flex-col gap-y-3 mb-3">
+                <label htmlFor="name">İstifadəçi adı</label>
+
+                <input
+                  {...register("userName")}
+                  type="text"
+                  placeholder="İstifadəçi adı"
+                  className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
+                />
+                {errors.userName && (
+                  <p className="text-red-500">{`${errors.userName.message}`}</p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-y-3 mb-3">
+                <label htmlFor="email">Email</label>
+                <input
+                  {...register("email")}
+                  type="email"
+                  placeholder="Email"
+                  className="border border-gray-400 outline-none focus:bg-[#E4E7E9] p-2 rounded-[5px]"
+                />
+                {errors.email && (
+                  <p className="text-red-500">{`${errors.email.message}`}</p>
+                )}
+              </div>
             </div>
 
-            <div className="flex flex-col gap-y-3 mb-6 relative">
-              <label className="flex justify-between" htmlFor="password">
-                Parol
-              </label>
+            <div className="flex items-center">
+              <div className="flex flex-col gap-y-3 mb-6 relative">
+                <label className="flex justify-between" htmlFor="password">
+                  Parol
+                </label>
 
-              <input
-                {...register("password")}
-                type={passwordIsClose ? "password" : "text"}
-                placeholder="Password"
-                className="border border-gray-400 focus:bg-[#E4E7E9] outline-none
+                <input
+                  {...register("password")}
+                  type={passwordIsClose ? "password" : "text"}
+                  placeholder="Password"
+                  className="border border-gray-400 focus:bg-[#E4E7E9] outline-none
                 p-2 rounded-[5px]"
-              />
-              <span className="absolute right-3 top-12">
-                {passwordIsClose ? (
-                  <FaEyeSlash onClick={() => setPasswordIsClose(false)} />
-                ) : (
-                  <IoEyeSharp onClick={() => setPasswordIsClose(true)} />
+                />
+                <span className="absolute right-3 top-12">
+                  {passwordIsClose ? (
+                    <FaEyeSlash onClick={() => setPasswordIsClose(false)} />
+                  ) : (
+                    <IoEyeSharp onClick={() => setPasswordIsClose(true)} />
+                  )}
+                </span>
+                {errors.password && (
+                  <p className="text-red-500">{`${errors.password.message}`}</p>
                 )}
-              </span>
-              {errors.password && (
-                <p className="text-red-500">{`${errors.password.message}`}</p>
-              )}
-            </div>
+              </div>
 
-            <div className="flex flex-col gap-y-3 mb-6 relative">
-              <label className="flex justify-between" htmlFor="password">
-                Parolu təsdiq et
-              </label>
+              <div className="flex flex-col gap-y-3 mb-6 relative">
+                <label className="flex justify-between" htmlFor="password">
+                  Parolu təsdiq et
+                </label>
 
-              <input
-                {...register("confirmPassword")}
-                type={confirmPasswordIsClose ? "password" : "text"}
-                placeholder="Confirm password"
-                className="border border-gray-400 focus:bg-[#E4E7E9] outline-none
+                <input
+                  {...register("confirmPassword")}
+                  type={confirmPasswordIsClose ? "password" : "text"}
+                  placeholder="Confirm password"
+                  className="border border-gray-400 focus:bg-[#E4E7E9] outline-none
               p-2 rounded-[5px]"
-              />
+                />
 
-              <span className="absolute right-3 top-12">
-                {confirmPasswordIsClose ? (
-                  <FaEyeSlash
-                    onClick={() => setConfirmPasswordIsClose(false)}
-                  />
-                ) : (
-                  <IoEyeSharp onClick={() => setConfirmPasswordIsClose(true)} />
+                <span className="absolute right-3 top-12">
+                  {confirmPasswordIsClose ? (
+                    <FaEyeSlash
+                      onClick={() => setConfirmPasswordIsClose(false)}
+                    />
+                  ) : (
+                    <IoEyeSharp
+                      onClick={() => setConfirmPasswordIsClose(true)}
+                    />
+                  )}
+                </span>
+                {errors.confirmPassword && (
+                  <p className="text-red-500">{`${errors.confirmPassword.message}`}</p>
                 )}
-              </span>
-              {errors.confirmPassword && (
-                <p className="text-red-500">{`${errors.confirmPassword.message}`}</p>
-              )}
+              </div>
             </div>
 
             <ReusableButton

@@ -47,9 +47,8 @@ function hasProperties(obj: { [key: string]: string }): boolean {
 
 function stringForQuery(obj: { [key: string]: string }): string {
   let str = "";
-  console.log(Object.entries(obj));
   Object.entries(obj).forEach((key) => (str = str + `&${key[0]}=${key[1]}`));
-  //
+
   return str;
 }
 
