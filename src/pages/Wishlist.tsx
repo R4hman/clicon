@@ -3,12 +3,7 @@ import ReusableButton from "@/components/reusable/ReusableButton";
 import React from "react";
 import { SlBasket } from "react-icons/sl";
 import { useSelector } from "react-redux";
-
-export const getImage = (arr: any[]): string => {
-  const image = arr.find((item) => item.imageStatus);
-
-  return image.imageUrl;
-};
+import { getImage } from "@/lib/utils";
 
 const Wishlist: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.favorites.favorites);

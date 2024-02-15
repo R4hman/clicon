@@ -4,17 +4,12 @@ import ReusableButton from "@/components/reusable/ReusableButton";
 import { FC, ReactElement, useMemo } from "react";
 import { SlBasket } from "react-icons/sl";
 import { useSelector } from "react-redux";
-import { getImage } from "./Wishlist";
+import { getImage } from "@/lib/utils";
 import { FaArrowRight } from "react-icons/fa";
 import { addOrRemoveBasket } from "@/app/features/basketSlice";
 import { useDispatch } from "react-redux";
 import { useBasket } from "@/hooks/basket/useBasket";
-
-const calculatePrice = (discountPercent: number, price: number): string => {
-  return (
-    discountPercent ? price - (price * discountPercent) / 100 : price
-  )?.toFixed(1);
-};
+import { calculatePrice } from "@/lib/utils";
 
 const ShoppingCard: FC = (): ReactElement => {
   // const basket = useSelector((state: RootState) => state.basket.basket);

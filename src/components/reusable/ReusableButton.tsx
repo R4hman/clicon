@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 type TReusableButton = {
   children: React.ReactNode;
@@ -8,6 +8,8 @@ type TReusableButton = {
   bgColor?: string;
   borderColor?: string;
   onClick?: () => void;
+  type?: "submit" | "reset" | "button";
+  style?: CSSProperties;
 };
 
 const ReusableButton: React.FC<TReusableButton> = ({
@@ -18,16 +20,20 @@ const ReusableButton: React.FC<TReusableButton> = ({
   bgColor,
   borderColor,
   onClick,
+  type,
+  style,
 }) => {
   const width = size ? `w-[${size}px]` : "";
 
   return (
     <button
+      style={style && style}
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={` ${bgColor} ${borderColor} ${
         borderColor && "border"
-      } flex items-center justify-center gap-x-2 min-w-full ${width} ${textColor} rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all `}
+      } flex items-center justify-center gap-x-2 ${width} ${textColor} rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all `}
     >
       {children}
     </button>
