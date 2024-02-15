@@ -4,6 +4,7 @@ import SwiperCarousel from "./reusable/SwiperCarousel";
 import { TCarousel, TSlider } from "@/types";
 import { SwiperSlide } from "swiper/react";
 import { useSliders } from "../hooks/useSliders";
+import ReusableBestDealsProduct from "./reusable/ReusableBestDealsProduct";
 
 const Sales: React.FC = () => {
   const { data, isLoading } = useSliders(
@@ -52,9 +53,27 @@ const Sales: React.FC = () => {
       </div>
 
       {/* Right part of Sales */}
-      <div className="basis-1/3 flex  flex-col h-full gap-y-4">
+      <div className="basis-1/3 flex  flex-col h-full gap-y-6">
+        <ReusableBestDealsProduct style={{}}>
+          <ReusableBestDealsProduct.ReusableBestDealsContent
+            slider={data.sliders.filter((slider) => !slider.status)[0]}
+          />
+          <ReusableBestDealsProduct.ReusableBestDealsImg
+            slider={data.sliders.filter((slider) => !slider.status)[0]}
+          />
+        </ReusableBestDealsProduct>
+        <ReusableBestDealsProduct bgColor="bg-gray-200">
+          <ReusableBestDealsProduct.ReusableBestDealsImg
+            slider={data.sliders.filter((slider) => !slider.status)[1]}
+          />
+          <ReusableBestDealsProduct.ReusableBestDealsContent
+            color="text-black"
+            slider={data.sliders.filter((slider) => !slider.status)[1]}
+          />
+        </ReusableBestDealsProduct>
+
         {/* Top part */}
-        <div className="bg-gray900 flex  rounded-[3px] pl-6 pt-6 overflow-hidden">
+        {/* <div className="bg-gray900 flex  rounded-[3px] pl-6 pt-6 overflow-hidden">
           <div className="flex flex-col gap-y-2">
             <span className="text-warning500 text-sm font-medium">
               Summer sales
@@ -65,9 +84,9 @@ const Sales: React.FC = () => {
             <ShopNowBtn />
           </div>
           <img src="public/image 5.png" alt="" />
-        </div>
+        </div> */}
         {/* Bottom part  */}
-        <div className="bg-gray900 flex  rounded-[3px] pl-6 pt-6 overflow-hidden">
+        {/* <div className="bg-gray900 flex  rounded-[3px] pl-6 pt-6 overflow-hidden">
           <div className="flex flex-col gap-y-2">
             <span className="text-warning500 text-sm font-medium">
               Summer sales
@@ -78,7 +97,7 @@ const Sales: React.FC = () => {
             <ShopNowBtn />
           </div>
           <img src="public/image 5.png" alt="" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
