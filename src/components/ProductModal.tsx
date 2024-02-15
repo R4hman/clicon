@@ -36,6 +36,7 @@ import {
 import { Link } from "react-router-dom";
 import { RootState } from "@/app/store";
 import ModalImage from "./ModalImage";
+import { addOrRemoveCompare } from "@/app/features/compareSlice";
 
 type TProductModal = {
   product: TProduct;
@@ -68,12 +69,9 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
   str = `${product.seriaNo}${str}`;
 
   console.log("str: " + str, product.seriaNo);
-  console.log("product ", product);
 
-  const { data: productByModal, isLoading } = useProductByModal(
-    `${str}`,
-    hasProperties(productValues)
-  );
+  const { data: productByModal, isLoading: productByModalLoading } =
+    useProductByModal(`${str}`, hasProperties(productValues));
 
   console.log("enableed data", productByModal);
 
@@ -94,8 +92,10 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
     ? productByModal.product?.images
     : product?.images;
   console.log("productValue", productValues);
+  console.log("productByModal", productByModal);
 
   console.log("singleProduct", singleProduct);
+  console.log("product", product);
 
   console.log("images", images);
 
@@ -161,13 +161,13 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
                 />
               ))}
             </div>
-            {singleProduct.product.brandId.features.map((feature) => (
+            {singleProduct.commonFeatures.map((feature) => (
               <SelectComponent
                 setProductValues={setProductValues}
                 productValues={productValues}
                 key={uuidv4()}
                 title={feature.name}
-                data={feature.option}
+                data={feature.options}
               />
             ))}
           </div>
@@ -204,15 +204,18 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
             </div>
           </div>
           <div className="flex items-center gap-x-6 my-6">
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2 cursor-pointer transition-all hover:scale-105 hover:font-medium">
               <FaRegHeart />
               <span>Add to Wishlist</span>
             </div>
             <div>
-              <Link className="flex items-center gap-x-2" to="/compare">
+              <div
+                onClick={() => dispatch(addOrRemoveCompare(product))}
+                className="flex items-center gap-x-2 cursor-pointer transition-all hover:scale-105 hover:font-medium"
+              >
                 <GoSync className="text-black" />
                 Add to Compare
-              </Link>
+              </div>
             </div>
           </div>
           <div className="border border-gray-300 rounded-[5px] p-4">
