@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import favoritesReducer from "./features/favoriteSlice";
 import basketReducer from "./features/basketSlice";
+import compareReducer from "./features/compareSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
@@ -12,6 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   favorites: favoritesReducer,
   basket: basketReducer,
+  compare: compareReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
