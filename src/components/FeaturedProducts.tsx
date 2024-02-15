@@ -21,8 +21,8 @@ const FeaturedProducts: React.FC<TFeaturedProducts> = ({
   const location = useLocation();
 
   const productList = Array.isArray(data)
-    ? data.slice(0, 8)
-    : data && Object.values(data).flat().slice(0, 8);
+    ? data.slice(0, 15)
+    : data && Object.values(data).flat().slice(0, 15);
 
   return (
     <section className="flex gap-x-4  ">
@@ -51,7 +51,7 @@ const FeaturedProducts: React.FC<TFeaturedProducts> = ({
           </div>
 
           <div className="flex flex-wrap mt-6  gap-4 items-center">
-            {productList?.slice(0, 8).map((item) => (
+            {productList?.slice(0, 15).map((item) => (
               <ProductCard key={item._id} product={item} />
             ))}
           </div>
