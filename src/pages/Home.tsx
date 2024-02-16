@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         <BestDeals />
         <ShopWithCategories />
         <SpesificProduct />
-        <section className="flex items-center gap-x-6">
+        <section className="flex flex-col sm:flex-row space-y-5  items-center  gap-x-6">
           <ProductInfo
             productName="
                 New Apple

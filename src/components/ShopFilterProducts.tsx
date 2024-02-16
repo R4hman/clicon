@@ -90,8 +90,8 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
   );
   console.log(products?.products[0]);
   return (
-    <div className="py-10">
-      <header className="flex items-center justify-between">
+    <div className="py-10 ">
+      <header className="flex flex-col md:flex-row space-x-5 space-y-5 items-center w-full  justify-between">
         <div className="rounded-2xl md:w-[500px] w-[400px]  shadow-navbarUser relative">
           <input
             placeholder="Search for anything"
@@ -100,7 +100,7 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
           />
           <CiSearch className="w-5 h-5 text-gray900 absolute right-5 top-[14px] cursor-pointer" />
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-center md:justify-end   space-x-10 sm:space-x-4  w-full">
           <span>Sort by:</span>
           <Select
             value={
@@ -150,7 +150,7 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
       </div>
       {productsLoading && <div>loading....</div>}
       {!productsLoading && (
-        <div className="flex items-center gap-x-2 flex-wrap">
+        <div className="flex items-center justify-center md:justify-start gap-x-2 flex-wrap">
           {products.products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
