@@ -21,15 +21,15 @@ const FeaturedProducts: React.FC<TFeaturedProducts> = ({
   const location = useLocation();
 
   const productList = Array.isArray(data)
-    ? data.slice(0, 8)
-    : data && Object.values(data).flat().slice(0, 8);
+    ? data.slice(0, 15)
+    : data && Object.values(data).flat().slice(0, 15);
 
   return (
-    <section className="flex gap-x-4  ">
-      <aside>{children}</aside>
+    <section className="flex px-5 lg:px-2 gap-x-4  flex-col md:flex-row items-center sm:items-start ">
+      <aside className="block sm:hidden lg:block">{children}</aside>
       <div className="w-full ">
         <div className="flex flex-col">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col my-5 sm:my-0 gap-y-5 md:flex-row justify-between  items-center">
             <h3 className="text-[24px] font-semibold leading-8">
               {sectionTitle}
             </h3>
@@ -39,8 +39,8 @@ const FeaturedProducts: React.FC<TFeaturedProducts> = ({
                   key={uuidv4()}
                   className={`${
                     location.search === item.url
-                      ? "text-gray900 text-sm relative after:w-full  after:bg-primary500  after:absolute after:left-0 after:top-[30px] after:p-[1px]"
-                      : "text-gray600 text-sm"
+                      ? "text-gray900 text-[11.5px] sm:text-sm relative after:w-full  after:bg-primary500  after:absolute after:left-0 after:top-[30px] after:p-[1px]"
+                      : "text-gray600 text-[11.5px] sm:text-sm"
                   }`}
                   to={item.url}
                 >
@@ -50,8 +50,8 @@ const FeaturedProducts: React.FC<TFeaturedProducts> = ({
             </nav>
           </div>
 
-          <div className="flex flex-wrap mt-6  gap-4 items-center">
-            {productList?.slice(0, 8).map((item) => (
+          <div className="flex flex-wrap mt-6 justify-center gap-4 md:gap-2 items-center lg:justify-start">
+            {productList?.slice(0, 15).map((item) => (
               <ProductCard key={item._id} product={item} />
             ))}
           </div>

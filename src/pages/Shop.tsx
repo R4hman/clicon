@@ -12,7 +12,7 @@ function Shop() {
     min_price: "",
     max_price: "",
     page: "1",
-    page_size: "4",
+    page_size: "8",
     name: "",
     price: "",
   });
@@ -29,19 +29,19 @@ function Shop() {
     setSearchParams(updatedSearchParams);
   }, [filterOptions, setSearchParams]);
   return (
-    <main className="container mx-auto flex ">
+    <main className="container lg:px-2 lg:py-2 space-x-4 mx-auto mb-10 flex flex-col lg:flex-row ">
       <section className="basis-1/4">
         <Category
           setFilterOptions={setFilterOptions}
           filterOptions={filterOptions}
         />
       </section>
-      <section className="flex flex-col w-full">
+      <section className="flex flex-col w-full lg:w-[85%]">
         <ShopFilterProducts
           setFilterOptions={setFilterOptions}
           filterOptions={filterOptions}
         />
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col  h-full items-center justify-center  sm:self-end ">
           <ShopFilterPagination setFilterOptions={setFilterOptions} />
         </div>
       </section>

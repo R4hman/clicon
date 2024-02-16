@@ -8,6 +8,7 @@ import {
   Suspense,
 } from "react";
 import Layout from "../layout/Layout";
+import { TLogin } from "@/types";
 
 // import Home from "@/pages/Home";
 // import Login from "@/pages/Login";
@@ -22,8 +23,12 @@ import Layout from "../layout/Layout";
 // import ShoppingCard from "@/pages/ShoppingCard";
 
 const Home: LazyExoticComponent<FC> = lazy(() => import("@/pages/Home"));
-const Login: LazyExoticComponent<FC> = lazy(() => import("@/pages/Login"));
-const SignUp: LazyExoticComponent<FC> = lazy(() => import("@/pages/SignUp"));
+const Login: LazyExoticComponent<FC<TLogin>> = lazy(
+  () => import("@/pages/Login")
+);
+const SignUp: LazyExoticComponent<FC<TLogin>> = lazy(
+  () => import("@/pages/SignUp")
+);
 const ForgetPassword: LazyExoticComponent<FC> = lazy(
   () => import("@/pages/ForgetPassword")
 );

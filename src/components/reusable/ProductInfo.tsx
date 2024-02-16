@@ -23,14 +23,20 @@ const ProductInfo: React.FC<TProductInfo> = ({
   const color = bgColor === "blue" ? "bg-secondary500" : "bg-warning400";
 
   return (
-    <div className={`flex items-center p-[44px] rounded-[4px] ${mainColor}`}>
+    <div
+      className={`flex items-center p-[44px] space-x-2 rounded-[4px] ${mainColor}`}
+    >
       <div className="flex flex-col gap-y-5">
         <span className={`${color} w-fit p-1.5 rounded-[2px]`}>{info}</span>
         <h3 className={`${textColor}`}>{productName}</h3>
         <p className={`${textColor}`}>{children}</p>
         <ShopNowBtn />
       </div>
-      <img src={url} />
+      <img
+        className="object-fit w-[200px] h-[200px]"
+        src={url}
+        alt="commercial image"
+      />
     </div>
   );
 };
