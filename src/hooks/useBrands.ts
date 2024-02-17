@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../services/fetchData.ts";
-import { TBrand, TCategory } from "../types/index.ts";
+import { TBrand } from "../types/index.ts";
 
 type TUseBrand = {
   data: Record<"brands", TBrand[]>;

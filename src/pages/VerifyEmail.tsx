@@ -3,11 +3,15 @@ import { verifyEmail } from "@/services/auth/apiVerifyEmail";
 import { useMutation } from "@tanstack/react-query";
 import { FC, ReactElement } from "react";
 import toast from "react-hot-toast";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  NavigateFunction,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 const VerifyEmail: FC = (): ReactElement => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: verifyEmail,
     onSuccess: (data) => {

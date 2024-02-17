@@ -27,7 +27,9 @@ function Shop() {
       }
     });
     setSearchParams(updatedSearchParams);
+    // setSearchParams(JSON.stringify({ test: updatedSearchParams }));
   }, [filterOptions, setSearchParams]);
+
   return (
     <main className="container lg:px-2 lg:py-2 space-x-4 mx-auto mb-10 flex flex-col lg:flex-row ">
       <section className="basis-1/4">

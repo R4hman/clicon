@@ -83,12 +83,6 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
     ),
   ];
 
-  console.log("activeFilters", activeFilters);
-
-  console.log(
-    "shop:products:filter " + Object.keys(!productsLoading && products.products)
-  );
-  console.log(products?.products[0]);
   return (
     <div className="py-10 ">
       <header className="flex flex-col md:flex-row space-x-5 space-y-5 items-center w-full  justify-between">
@@ -125,10 +119,7 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
         <div className="flex items-center gap-x-3">
           Aktiv filterlər:
           {activeFilters.map((activeFilter) => (
-            <div
-              key={activeFilter && activeFilter}
-              className="flex items-center gap-x-1.5"
-            >
+            <div key={uuidv4()} className="flex items-center gap-x-1.5">
               {activeFilter && activeFilter}
               <span
                 className="cursor-pointer  text-red-600 transition-all hover:scale-125"

@@ -7,7 +7,7 @@ import { FaArrowRight, FaEyeSlash } from "react-icons/fa";
 import { z } from "zod";
 
 import ReusableButton from "@/components/reusable/ReusableButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { TLogin } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/auth/apiLogin";
@@ -21,7 +21,7 @@ type TLoginSchema = z.infer<typeof loginSchema>;
 
 const Login: React.FC<TLogin> = ({ type, setType }) => {
   const [passwordIsClose, setPasswordIsClose] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
   const {
     register,

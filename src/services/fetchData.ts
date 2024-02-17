@@ -3,6 +3,9 @@ export async function fetchData(url: string) {
   // const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
   console.log("url", url);
   try {
+    if (url.includes("undefined")) {
+      return null;
+    }
     const response = await fetch(url);
 
     if (!response.ok) {
