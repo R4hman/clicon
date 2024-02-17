@@ -7,7 +7,7 @@ import { FaArrowRight, FaEyeSlash } from "react-icons/fa";
 import { z } from "zod";
 
 import ReusableButton from "@/components/reusable/ReusableButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { TLogin } from "@/types";
 import { register as registerApi } from "../services/auth/apiRegister";
 
@@ -33,7 +33,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }) => {
   const [passwordIsClose, setPasswordIsClose] = useState<boolean>(true);
   const [confirmPasswordIsClose, setConfirmPasswordIsClose] =
     useState<boolean>(true);
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
   const {
     register,

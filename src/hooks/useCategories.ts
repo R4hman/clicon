@@ -15,5 +15,7 @@ export function useCategories(url: string): TUseCategory {
     refetchOnWindowFocus: false,
   });
 
+  console.log("categories: " + data);
+
   return { data, isLoading };
 }

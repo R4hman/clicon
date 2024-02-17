@@ -66,14 +66,10 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
 
   let str = stringForQuery(productValues);
   str = str.replace("&", "?");
-  str = `${product.seriaNo}${str}`;
-
-  console.log("str: " + str, product.seriaNo);
+  str = `${product?.seriaNo}${str}`;
 
   const { data: productByModal, isLoading: productByModalLoading } =
     useProductByModal(`${str}`, hasProperties(productValues));
-
-  console.log("enableed data", productByModal);
 
   const dispatch = useDispatch();
   const isRadioSelected = (value: string): boolean => colorRadio === value;
@@ -91,13 +87,6 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
   const images = productByModal
     ? productByModal.product?.images
     : product?.images;
-  console.log("productValue", productValues);
-  console.log("productByModal", productByModal);
-
-  console.log("singleProduct", singleProduct);
-  console.log("product", product);
-
-  console.log("images", images);
 
   return (
     <Dialog modal>

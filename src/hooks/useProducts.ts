@@ -11,10 +11,8 @@ export function useProducts(url: string, enabled: boolean = true): TUseProduct {
   console.log("enabled", enabled);
   const { data, isLoading } = useQuery({
     queryKey: ["products", url],
-    queryFn: (url) =>
-      fetchData(url.queryKey[1], {
-        enabled: enabled,
-      }),
+    queryFn: (url) => fetchData(url.queryKey[1]),
+    enabled,
   });
 
   return { data, isLoading };
@@ -24,6 +22,7 @@ export function useSingleProduct(url: string): TUseProduct {
     queryKey: ["singleProduct", url],
     queryFn: (url) => fetchData(url.queryKey[1]),
   });
+  console.log("singleProduct ise dusdu", data);
 
   return { data, isLoading };
 }
@@ -37,10 +36,11 @@ export function useProductByModal(
   const { data, isLoading } = useQuery({
     queryKey: ["productByModal", str, enabled],
     queryFn: () =>
-      fetchData(`https://clicon.onrender.com/api/v1/products/detail/${str}`, {
-        enabled: enabled,
-      }),
+      fetchData(`https://clicon.onrender.com/api/v1/products/detail/${str}`),
+    enabled,
   });
+
+  console.log("productByModal ise dusdu", data);
 
   return { data, isLoading };
 }

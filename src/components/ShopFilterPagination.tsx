@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/pagination";
 import { useProductsFilter } from "@/hooks/useProductsFilter";
 import { TFilterOptions } from "@/types";
+import { v4 as uuidv4 } from "uuid";
 
 type TPaginationProps = {
   setFilterOptions: React.Dispatch<React.SetStateAction<TFilterOptions>>;
@@ -38,6 +39,7 @@ const ShopFilterPagination: React.FC<TPaginationProps> = ({
           {Array.from({ length: data?.totalPages }, (_, x) => x + 1).map(
             (page) => (
               <PaginationItem
+                key={uuidv4()}
                 onClick={() =>
                   setFilterOptions((prev) => ({ ...prev, page: page + "" }))
                 }

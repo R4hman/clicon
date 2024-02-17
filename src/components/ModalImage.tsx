@@ -1,5 +1,6 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import SwiperCarousel from "./reusable/SwiperCarousel";
+import { v4 as uuidv4 } from "uuid";
 
 type TProductImages = {
   imageStatus: boolean;
@@ -37,7 +38,11 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
       </div> */}
       <div className="flex items-center gap-x-2">
         {productImgs?.map((item) => (
-          <img className="h-[70px] w-[70px]" src={item.imageUrl} />
+          <img
+            key={uuidv4()}
+            className="h-[70px] w-[70px]"
+            src={item.imageUrl}
+          />
         ))}
       </div>
     </div>
