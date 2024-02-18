@@ -110,6 +110,17 @@ export type TSignUp = {
   password: string;
 };
 
+export type TLoginUser = {
+  user: {
+    userId: string;
+    role: string;
+  };
+  orders: string[];
+  basketItems: string[];
+  refreshToken: string;
+  accessToken: string;
+};
+
 export type TFilterOptions = {
   categoryId: string;
   brandId: string;
