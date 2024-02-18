@@ -23,7 +23,7 @@ const ReusableButton: React.FC<TReusableButton> = ({
   type,
   style,
 }) => {
-  const width = size ? `w-[${size}px]` : "";
+  // const width = size ? `w-[${size}px]` : "";
 
   return (
     <button
@@ -33,7 +33,7 @@ const ReusableButton: React.FC<TReusableButton> = ({
       disabled={disabled}
       className={` ${bgColor} ${borderColor} ${
         borderColor && "border"
-      } flex items-center justify-center gap-x-2 ${width} ${textColor} rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all `}
+      } flex items-center justify-center gap-x-2 w-full ${textColor} rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all `}
     >
       {children}
     </button>

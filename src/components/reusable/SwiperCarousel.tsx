@@ -29,7 +29,7 @@ const SwiperCarousel: React.FC<TSwiperCarouselProps<TSlider | TCarousel>> = ({
   return (
     <div className="h-full">
       <Swiper
-        // className="basis-1"
+        className="basis-1"
         style={{
           // width: "100%",
           height: "100%",

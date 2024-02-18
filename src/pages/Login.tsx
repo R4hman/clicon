@@ -11,6 +11,7 @@ import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { TLogin } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/auth/apiLogin";
+import { useLogin } from "@/hooks/auth/useLogin";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -22,6 +23,7 @@ type TLoginSchema = z.infer<typeof loginSchema>;
 const Login: React.FC<TLogin> = ({ type, setType }) => {
   const [passwordIsClose, setPasswordIsClose] = useState<boolean>(true);
   const navigate: NavigateFunction = useNavigate();
+  const { mutate, isPending } = useLogin();
 
   const {
     register,
@@ -32,17 +34,6 @@ const Login: React.FC<TLogin> = ({ type, setType }) => {
     setError,
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: login,
-    onSuccess: (data) => {
-      console.log("success data", data);
-      navigate("/");
-    },
-    onError: (err) => {
-      console.log(err);
-    },
   });
 
   const onSubmit = (data: TLoginSchema) => {

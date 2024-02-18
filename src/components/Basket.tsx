@@ -66,7 +66,7 @@ const Basket: React.FC = () => {
         <div className="px-4">
           <Link
             className="uppercase border border-warning200 text-primary500  transition-all hover:scale-105 py-3.5 flex items-center gap-1 justify-center"
-            to="/checkout"
+            to="/shopping-card"
           >
             VIEW Cart
           </Link>
