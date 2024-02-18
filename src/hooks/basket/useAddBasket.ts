@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 
 export const useAddBasket = () => {
   const { mutate, isPending } = useMutation({
-    mutationFn: (data) => addBasket(data),
+    mutationFn: addBasket,
     onSuccess: (data) => {
       console.log("add basket data", data);
     },

@@ -77,6 +77,8 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
     setColorRadio(e.currentTarget.value);
 
   const basket = useSelector((state: RootState) => state.basket.basket);
+  const compare = useSelector((state: RootState) => state.compare.compare);
+  const isInCompare = compare.find((item) => item._id === product._id);
   const productItemCount = basket.find(
     (item) => item._id === product._id
   )?.productCount;
@@ -136,8 +138,8 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
             {/* <span>{product?.price}</span> */}
           </div>
           <div className="w-full h-[1.3px] my-6 bg-gray100"></div>
-          <div className="flex justify-between  flex-wrap">
-            <div>
+          <div className="flex justify-between  flex-wrap gap-6 mb-6">
+            {/* <div>
               {product.colors?.map((color) => (
                 <input
                   className="accent-green-500 focus:accent-red-500"
@@ -149,7 +151,7 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
                   onChange={handleRadioClick}
                 />
               ))}
-            </div>
+            </div> */}
             {singleProduct.commonFeatures.map((feature) => (
               <SelectComponent
                 setProductValues={setProductValues}
@@ -203,7 +205,7 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
                 className="flex items-center gap-x-2 cursor-pointer transition-all hover:scale-105 hover:font-medium"
               >
                 <GoSync className="text-black" />
-                Add to Compare
+                {isInCompare ? "Remove from Compare" : "Add to Compare"}
               </div>
             </div>
           </div>
