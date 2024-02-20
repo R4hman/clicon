@@ -2,6 +2,7 @@ import { FC, ReactElement, useEffect, useState } from "react";
 import SwiperCarousel from "./reusable/SwiperCarousel";
 import { v4 as uuidv4 } from "uuid";
 import { SwiperSlide } from "swiper/react";
+import ReactImageMagnify from "react-image-magnify";
 
 type TProductImages = {
   imageStatus: boolean;
@@ -26,7 +27,24 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
   }, [images, productImgs]);
   return (
     <div className="flex flex-1 w-[300px]  flex-col gap-y-6 ">
-      <img style={{ width: "600px" }} src={src} alt="" />
+
+      <div className="">
+        <ReactImageMagnify
+          {...{
+            smallImage: {
+              alt: "Wristwatch by Ted Baker London",
+              isFluidWidth: true,
+              src: src,
+            },
+            largeImage: {
+              src: src,
+              width: 1900,
+              height: 1800,
+            },
+          }}
+          isHintEnabled
+        />
+      </div>
       <div className="h-[100px] ">
         <SwiperCarousel
           dataToMap={images}
@@ -43,15 +61,7 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
           )}
         />
       </div>
-      {/* <div className="flex items-center gap-x-2">
-        {productImgs?.map((item) => (
-          <img
-            key={uuidv4()}
-            className="h-[70px] w-[70px]"
-            src={item.imageUrl}
-          />
-        ))}
-      </div> */}
+      
     </div>
   );
 };

@@ -31,7 +31,6 @@ import { TLoginUser, TSignUp } from "../../types";
 
 export const login = async (data: TSignUp): Promise<TLoginUser> => {
   try {
-    console.log("gelen data", data);
     const response = await axios.post<TLoginUser>(
       "https://clicon.onrender.com/api/v1/auth/login",
       data,
@@ -64,5 +63,17 @@ export const login = async (data: TSignUp): Promise<TLoginUser> => {
     }
 
     throw error;
+  }
+};
+
+export const logout = async function () {
+  try {
+    const response = await fetch(
+      "https://clicon.onrender.com/api/v1/auth/logout"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("errror", error);
   }
 };

@@ -117,19 +117,20 @@ export type TLoginUser = {
   };
   orders: string[];
   basketItems: string[];
-  refreshToken: string;
-  accessToken: string;
+  refreshTokenJWT: string;
+  accessTokenJwt: string;
 };
 
 export type TFilterOptions = {
   categoryId: string;
-  brandId: string;
+  brandId: string[];
   min_price: string;
   max_price: string;
   name: string;
   page: string;
   page_size: string;
   price: string;
+  search: string;
 };
 
 export type TVerifyEmail = {

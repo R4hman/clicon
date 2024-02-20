@@ -46,7 +46,7 @@ const ShopWithCategories: React.FC = (): ReactElement => {
       <div className="">
         <SwiperCarousel
           slidesPerView={slidesPerView}
-          dataToMap={data.categories}
+          dataToMap={data?.categories}
           hasPrevNext
           render={(item): React.ReactNode => (
             <SwiperSlide>
