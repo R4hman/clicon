@@ -9,6 +9,10 @@ import {
 } from "react";
 import Layout from "../layout/Layout";
 import { TLogin } from "@/types";
+import Profile from "@/pages/Profile";
+import ProtectedRoutes from "@/components/ProtectedRoutes";
+import ProfileLayout from "@/components/ProfileLayout";
+import Settings from "@/pages/Settings";
 
 // import Home from "@/pages/Home";
 // import Login from "@/pages/Login";
@@ -73,6 +77,20 @@ function Routing() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/shopping-card" element={<ShoppingCard />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoutes>
+                <ProfileLayout />
+              </ProtectedRoutes>
+            }
+          >
+            {/* <Route path="settings" element={<Profile />} /> */}
+            <Route path="shopping-card" element={<ShoppingCard />} />
+            <Route path="compare" element={<CompareProducts />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>

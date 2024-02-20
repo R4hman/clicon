@@ -1,5 +1,5 @@
 import { useCategories } from "@/hooks/useCategories";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Slider } from "@/components/ui/slider";
@@ -32,6 +32,24 @@ const Category: React.FC<TCategoryProps> = ({
   const { data: brands, isLoading: brandsLoading } = useBrands(
     "https://clicon.onrender.com/api/v1/brands"
   );
+
+  const handleBrandId = (e: ChangeEvent<HTMLInputElement>) => {
+    const isInBrandId = filterOptions.brandId.includes(e.target.value);
+    if (isInBrandId) {
+      const brandId = filterOptions.brandId.filter(
+        (item) => item !== e.target.value
+      );
+      setFilterOptions((prev) => ({
+        ...prev,
+        brandId,
+      }));
+    } else {
+      setFilterOptions((prev) => ({
+        ...prev,
+        brandId: [...prev.brandId, e.target.value],
+      }));
+    }
+  };
 
   if (isLoading || brandsLoading) {
     return <div>Loading...</div>;
@@ -136,13 +154,7 @@ const Category: React.FC<TCategoryProps> = ({
           {brands.brands.map((brand) => (
             <div key={brand._id} className="w-[50%]">
               <input
-                onChange={(e) =>
-                  setFilterOptions((prev) => ({
-                    ...prev,
-                    brandId:
-                      prev.brandId === e.target.value ? "" : e.target.value,
-                  }))
-                }
+                onChange={handleBrandId}
                 className="accent-primary500 w-4 h-4 mr-1"
                 type="checkbox"
                 value={brand._id}

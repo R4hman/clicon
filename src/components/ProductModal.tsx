@@ -125,12 +125,12 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span>Brend: {product.brandId.name}</span>
-            <span>Kateqoriya: {product?.categoryId.name}</span>
+            <span>Brend: {product?.brandId?.name}</span>
+            <span>Kateqoriya: {product?.categoryId?.name}</span>
           </div>
           <div className="flex items-center gap-x-2">
             <span className="text-secondary500 text-[24px] font-semibold leading-8">
-              ₼ {product.costPrice}
+              ₼ {product?.costPrice}
             </span>
             <span className="text-gray500 text-[18px] line-through font-normal">
               ₼ {product?.salePrice}
@@ -152,7 +152,7 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
                 />
               ))}
             </div> */}
-            {singleProduct.commonFeatures.map((feature) => (
+            {singleProduct?.commonFeatures.map((feature) => (
               <SelectComponent
                 setProductValues={setProductValues}
                 productValues={productValues}

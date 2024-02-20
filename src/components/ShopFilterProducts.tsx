@@ -1,5 +1,5 @@
 import { useProductsFilter } from "@/hooks/useProductsFilter";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import ProductCard from "@/components/reusable/ProductCard";
 import { CiSearch } from "react-icons/ci";
@@ -88,6 +88,12 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
       <header className="flex flex-col md:flex-row space-x-5 space-y-5 items-center w-full  justify-between">
         <div className="rounded-2xl md:w-[500px] w-[400px]  shadow-navbarUser relative">
           <input
+            onChange={(e: ChangeEvent) =>
+              setFilterOptions((prev) => ({
+                ...prev,
+                search: (e.target as HTMLInputElement).value,
+              }))
+            }
             placeholder="Search for anything"
             className="w-full py-3.5 px-5 border rounded-[3px] border-gray-200 outline-none"
             type="text"

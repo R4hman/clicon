@@ -8,13 +8,14 @@ import ShopFilterPagination from "@/components/ShopFilterPagination";
 function Shop() {
   const [filterOptions, setFilterOptions] = useState<TFilterOptions>({
     categoryId: "",
-    brandId: "",
+    brandId: [],
     min_price: "",
     max_price: "",
     page: "1",
     page_size: "8",
     name: "",
     price: "",
+    search: "",
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +24,11 @@ function Shop() {
     const updatedSearchParams: Record<string, string> = {};
     Object.entries(filterOptions).forEach((option) => {
       if (option[1] !== "") {
-        updatedSearchParams[option[0]] = option[1];
+        if (!Array.isArray(option[1])) {
+          updatedSearchParams[option[0]] = option[1];
+        } else if (option[1].length) {
+          updatedSearchParams[option[0]] = option[1].join(",");
+        }
       }
     });
     setSearchParams(updatedSearchParams);
