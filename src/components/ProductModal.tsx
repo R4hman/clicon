@@ -61,7 +61,7 @@ const ProductModal: FC<TProductModal> = ({ product }): ReactElement => {
   );
 
   const { data: singleProduct, isLoading: isProductLoading } = useSingleProduct(
-    `https://clicon.onrender.com/api/v1/products/${product._id}`
+    `https://clicon.onrender.com/api/v1/products/${product?._id}`
   );
 
   let str = stringForQuery(productValues);

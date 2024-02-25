@@ -38,6 +38,9 @@ const ForgetPassword: LazyExoticComponent<FC> = lazy(
 );
 const Page404: LazyExoticComponent<FC> = lazy(() => import("@/pages/Page404"));
 const Shop: LazyExoticComponent<FC> = lazy(() => import("@/pages/Shop"));
+const SingleProduct: LazyExoticComponent<FC> = lazy(
+  () => import("@/pages/SingleProduct")
+);
 const CompareProducts: LazyExoticComponent<FC> = lazy(
   () => import("@/pages/CompareProducts")
 );
@@ -73,6 +76,7 @@ function Routing() {
           <Route path="/user/verify-email" element={<VerifyEmail />} />
 
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/:id" element={<SingleProduct />} />
           <Route path="/compare" element={<CompareProducts />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/shopping-card" element={<ShoppingCard />} />
