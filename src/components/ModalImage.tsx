@@ -19,25 +19,30 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
   const [src, setSrc] = useState();
 
   useEffect(() => {
+    console.log("images", images);
     if (images) {
       setProductImgs(images);
       const mainImage = productImgs?.find((img) => img.imageStatus)?.imageUrl;
+      console.log("mainImage: " + mainImage);
       setSrc(mainImage);
     }
   }, [images, productImgs]);
+
+  if (!src) {
+    return <div>loading...</div>;
+  }
   return (
     <div className="flex flex-1 w-[300px]  flex-col gap-y-6 ">
-
       <div className="">
         <ReactImageMagnify
           {...{
             smallImage: {
               alt: "Wristwatch by Ted Baker London",
               isFluidWidth: true,
-              src: src,
+              src: src && src,
             },
             largeImage: {
-              src: src,
+              src: src && src,
               width: 1900,
               height: 1800,
             },
@@ -48,20 +53,19 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
       <div className="h-[100px] ">
         <SwiperCarousel
           dataToMap={images}
-          slidesPerView={images.length - 2}
+          slidesPerView={images?.length - 2}
           render={(item) => (
             <SwiperSlide>
               <img
-                onClick={() => setSrc(item.imageUrl)}
+                onClick={() => setSrc(item?.imageUrl)}
                 className="h-[70px] w-[70px] hover:scale-125 cursor-pointer transition-all"
-                src={item.imageUrl}
+                src={item?.imageUrl}
                 alt="product img"
               />
             </SwiperSlide>
           )}
         />
       </div>
-      
     </div>
   );
 };

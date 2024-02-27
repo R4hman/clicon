@@ -46,6 +46,7 @@ export const addBasket = async (data: TAddBasket) => {
     const token = getCookie("accessToken");
 
     if (!token) {
+      console.log("token", token);
       throw new Error("Authentication token not found.");
     }
 
@@ -57,7 +58,7 @@ export const addBasket = async (data: TAddBasket) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
+        // credentials: "include",
         body: JSON.stringify(data),
       }
     );

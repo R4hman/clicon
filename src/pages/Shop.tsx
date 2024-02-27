@@ -1,7 +1,12 @@
 import ShopFilterProducts from "@/components/ShopFilterProducts";
 import Category from "../components/Category";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  Navigation,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { TFilterOptions } from "../types";
 import ShopFilterPagination from "@/components/ShopFilterPagination";
 
@@ -12,28 +17,35 @@ function Shop() {
     min_price: "",
     max_price: "",
     page: "1",
-    page_size: "8",
+    page_size: "4",
     name: "",
     price: "",
     search: "",
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
-    const updatedSearchParams: Record<string, string> = {};
-    Object.entries(filterOptions).forEach((option) => {
-      if (option[1] !== "") {
-        if (!Array.isArray(option[1])) {
-          updatedSearchParams[option[0]] = option[1];
-        } else if (option[1].length) {
-          updatedSearchParams[option[0]] = option[1].join(",");
+    if (location?.state?.input) {
+      filterOptions.search = location.state.input;
+      setSearchParams(filterOptions);
+    } else {
+      const updatedSearchParams: Record<string, string> = {};
+      Object.entries(filterOptions).forEach((option) => {
+        if (option[1] !== "") {
+          if (!Array.isArray(option[1])) {
+            updatedSearchParams[option[0]] = option[1];
+          } else if (option[1].length) {
+            updatedSearchParams[option[0]] = option[1].join(",");
+          }
         }
-      }
-    });
-    setSearchParams(updatedSearchParams);
-    // setSearchParams(JSON.stringify({ test: updatedSearchParams }));
-  }, [filterOptions, setSearchParams]);
+        setSearchParams(updatedSearchParams);
+      });
+    }
+  }, [filterOptions, location?.state?.input, setSearchParams]);
+
+  console.log("filterOptions", filterOptions);
 
   return (
     <main className="container lg:px-2 lg:py-2 space-x-4 mx-auto mb-10 flex flex-col lg:flex-row ">
