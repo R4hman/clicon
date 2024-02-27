@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { GoPerson } from "react-icons/go";
 import HeaderBottom from "../../components/HeaderBottom";
 import Logo from "../../assets/svg/LogoWarning.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigation, useNavigate } from "react-router-dom";
 
 import Basket from "@/components/Basket.js";
 import Person from "@/components/Person";
 
 const Navbar: React.FC = () => {
+  const [inp, setInp] = useState("");
+  console.log("inp", inp);
+  const navigate = useNavigate();
   return (
     <div>
       <div className="bg-secondary700">
@@ -22,12 +25,22 @@ const Navbar: React.FC = () => {
             <span className="text-gray0 text-[32px] font-bold">Clicon</span>
           </Link>
           <div className="rounded-2xl md:w-[500px] w-[400px] order-1 sm:order-2 shadow-navbarUser relative">
-            <input
-              placeholder="Search for anything"
-              className="w-full py-3.5 px-5 border-none outline-none"
-              type="text"
-            />
-            <CiSearch className="w-5 h-5 text-gray900 absolute right-5 top-[14px] cursor-pointer" />
+            <form>
+              <input
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInp(e.target.value)
+                }
+                placeholder="Search for anything"
+                className="w-full py-3.5 px-5 border-none outline-none"
+                type="text"
+              />
+              <div
+                onClick={() => navigate("/shop", { state: { input: inp } })}
+                className="w-5 h-5 text-gray900 absolute right-5 top-[14px] cursor-pointer"
+              >
+                <CiSearch className="w-full h-full" />
+              </div>
+            </form>
           </div>
           <div className="flex order-2 sm:order-3 items-center gap-x-6">
             <Basket />

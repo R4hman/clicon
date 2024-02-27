@@ -4,10 +4,12 @@ import React from "react";
 import { SlBasket } from "react-icons/sl";
 import { useSelector } from "react-redux";
 import { getImage } from "@/lib/utils";
+import { useLocation } from "react-router-dom";
 
 const Wishlist: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.favorites.favorites);
-
+  const location = useLocation();
+  console.log("location state", location.state);
   console.log("wishlist", wishlist);
 
   return (

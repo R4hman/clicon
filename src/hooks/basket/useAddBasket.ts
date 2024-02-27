@@ -28,14 +28,14 @@ type TAddBasket = {
   count: number;
 };
 export const useAddBasket = () => {
-  const { mutate, isIdle, isLoading, isError, error } = useMutation({
+  const { mutate, isIdle, isPending, isError, error } = useMutation({
     mutationFn: (data: TAddBasket) => addBasket(data),
   });
 
   return {
     mutate,
     isIdle,
-    isLoading,
+    isPending,
     isError,
     error,
   };
