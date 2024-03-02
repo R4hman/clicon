@@ -1,8 +1,16 @@
+import { getCookie } from "@/lib/utils";
 import toast from "react-hot-toast";
-import { TSignUp } from "../../types";
 export const getAllBasket = async (): Promise<unknown> => {
   try {
-    const res = await fetch("https://clicon.onrender.com/api/v1/basketItems");
+    const token = getCookie("accessToken");
+
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/basketItems`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
     const responseData = await res.json();
     if (!res.ok) {
       console.log("Res", res);

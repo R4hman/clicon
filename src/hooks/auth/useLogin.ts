@@ -13,6 +13,7 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: login,
     onSuccess: (data: TLoginUser) => {
+      console.log("data", data);
       dispatch(userLogin(data));
       setCookie("refreshToken", data.refreshTokenJWT, 7);
       setCookie("accessToken", data.accessTokenJwt, 7);

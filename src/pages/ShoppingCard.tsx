@@ -16,17 +16,31 @@ const ShoppingCard: FC = (): ReactElement => {
   const { data: basket, isLoading } = useBasket();
   const dispatch = useDispatch();
 
-  const subTotal: number = useMemo(
-    () =>
-      basket?.reduce((acc, curr) => {
-        return (
-          acc +
-          curr.productCount *
-            +calculatePrice(curr.discountPercent, curr.salePrice)
-        );
-      }, 0),
-    [basket]
-  );
+  const subTotal: number = useMemo(() => {
+    if (!basket?.basketItems || basket.basketItems.length === 0) {
+      return 0;
+    }
+
+    return basket.basketItems.reduce((acc, curr) => {
+      const count = curr.count ?? 0;
+      const productId = curr.productId;
+
+      if (!productId || typeof productId !== "object") {
+        return acc;
+      }
+
+      const discountPercent = productId.discountPercent ?? 0;
+      const salePrice = productId.salePrice ?? 0;
+
+      return acc + count * +calculatePrice(discountPercent, salePrice);
+    }, 0);
+  }, [basket]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log("basket", basket);
 
   return (
     <section className="container mx-auto">
@@ -45,8 +59,8 @@ const ShoppingCard: FC = (): ReactElement => {
           </div>
           <div className="flex flex-col">
             {/* first product */}
-            {basket?.map((item) => (
-              <div key={item._id} className="flex items-center p-6 ">
+            {basket?.basketItems?.map((item) => (
+              <div key={item.productId._id} className="flex items-center p-6 ">
                 <div className="flex items-center gap-x-3 basis-2/5 ">
                   <span
                     onClick={() => dispatch(addOrRemoveBasket(item))}
@@ -56,20 +70,25 @@ const ShoppingCard: FC = (): ReactElement => {
                   </span>
                   <img
                     className="w-[72px] h-[72px]"
-                    src={getImage(item.images)}
+                    src={getImage(item.productId.images)}
                     alt="wishlist product photo"
                   />
-                  <h4 className="text-md mr-5 ">{item.name}</h4>
+                  <h4 className="text-md mr-5 ">{item.productId.name}</h4>
                 </div>
                 <div className="basis-1/5 text-sm space-x-1  text-gray-400">
-                  <span className="line-through">₼{item.salePrice}</span>
+                  <span className="line-through">
+                    ₼{item.productId.salePrice}
+                  </span>
                   <span>
                     ₼
-                    {/* {item.discountPercent
-                      ? item.salePrice -
-                        (item.salePrice * item.discountPercent) / 100
-                      : item.salePrice} */}
-                    {calculatePrice(item.discountPercent, item.salePrice)}
+                    {/* {item.productId.discountPercent
+                      ? item.productId.salePrice -
+                        (item.productId.salePrice * item.productId.discountPercent) / 100
+                      : item.productId.salePrice} */}
+                    {calculatePrice(
+                      item.productId.discountPercent,
+                      item.productId.salePrice
+                    )}
                   </span>
                 </div>
                 {/* <div
@@ -86,11 +105,13 @@ const ShoppingCard: FC = (): ReactElement => {
                   <span>
                     ₼
                     {(
-                      item.productCount *
-                      (item.discountPercent
-                        ? item.salePrice -
-                          (item.salePrice * item.discountPercent) / 100
-                        : item.salePrice)
+                      item.count *
+                      (item.productId.discountPercent
+                        ? item.productId.salePrice -
+                          (item.productId.salePrice *
+                            item.productId.discountPercent) /
+                            100
+                        : item.productId.salePrice)
                     ).toFixed(1)}
                   </span>
                 </div>
