@@ -31,8 +31,9 @@ import { TLoginUser, TSignUp } from "../../types";
 
 export const login = async (data: TSignUp): Promise<TLoginUser> => {
   try {
+    console.log("data", data);
     const response = await axios.post<TLoginUser>(
-      "https://clicon.onrender.com/api/v1/auth/login",
+      `${import.meta.env.VITE_BASE_URL}/v1/auth/login`,
       data,
       {
         withCredentials: true,

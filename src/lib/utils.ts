@@ -33,16 +33,33 @@ export function setCookie(
   document.cookie = cookieString;
 }
 
+// export function getCookie(name: string): string | null {
+//   console.log("document.cookie", document.cookie);
+//   const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
+//   console.log("cookies", cookies);
+
+//   for (const cookie of cookies) {
+//     const [cookieName, cookieValue] = cookie.split("=");
+
+//     if (cookieName === name) {
+//       return decodeURIComponent(cookieValue);
+//     }
+//   }
+
+//   return null;
+// }
+
 export function getCookie(name: string): string | null {
   const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
 
   for (const cookie of cookies) {
     const [cookieName, cookieValue] = cookie.split("=");
 
-    if (cookieName === name) {
+    // Check for matching cookie name (case-sensitive)
+    if (cookieName.trim() === name) {
       return decodeURIComponent(cookieValue);
     }
   }
 
-  return null;
+  return null; // Cookie not found
 }
