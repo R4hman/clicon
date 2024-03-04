@@ -24,7 +24,6 @@ const ProductCard: React.FC<TProductCard> = ({
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const favs = useAppSelector((state: RootState) => state.favorites.favorites);
-  const basket = useAppSelector((state: RootState) => state.basket.basket);
   const { mutate, isPending } = useAddBasket();
   const user = useSelector((state: RootState) => state.user);
 
@@ -38,7 +37,7 @@ const ProductCard: React.FC<TProductCard> = ({
     // dispatch(addOrRemoveBasket(data));
     console.log("userBasket", user?.user?.basketItems);
     console.log("handleAddBasket", data._id);
-    mutate({ productId: data._id, count: 2 });
+    mutate({ productId: data._id, count: 1 });
   };
 
   return (

@@ -16,6 +16,9 @@ import { addOrRemoveCompare } from "@/app/features/compareSlice";
 import { v4 as uuidv4 } from "uuid";
 import { RootState } from "@/app/store";
 import { TProduct } from "@/types";
+import IncreaseDecreaseBtn from "./IncreaseDecreaseBtn";
+import { useBasket } from "@/hooks/basket/useBasket";
+import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
 
 type TModalContent = {
   product: TProduct;
@@ -62,12 +65,13 @@ const ModalContent: FC<TModalContent> = ({
   const handleRadioClick = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setColorRadio(e.currentTarget.value);
 
-  const basket = useSelector((state: RootState) => state.basket.basket);
+  const { basket, handleMutateBasket } = CustomBasketHook();
   const compare = useSelector((state: RootState) => state.compare.compare);
   const isInCompare = compare.find((item) => item._id === product._id);
-  const productItemCount = basket.find(
-    (item) => item._id === product._id
-  )?.productCount;
+
+  const item = basket?.basketItems.find(
+    (item) => item.productId._id === product._id
+  );
 
   const images = productByModal
     ? productByModal.product?.images
@@ -76,7 +80,6 @@ const ModalContent: FC<TModalContent> = ({
   if (isProductLoading) {
     return <div>loading..</div>;
   }
-  console.log("images: " + singleProduct);
 
   return (
     <div
@@ -149,21 +152,10 @@ const ModalContent: FC<TModalContent> = ({
           ))}
         </div>
         <div className="flex items-center gap-x-3">
-          <div className="border border-gray-300 rounded-md p-3 flex items-center gap-x-4">
-            <span
-              className="text-[18px] cursor-pointer"
-              onClick={() => dispatch(decreaseProductCount(product))}
-            >
-              -
-            </span>
-            <span className="text-[18px]">{productItemCount || 0} </span>
-            <span
-              className="text-[18px] cursor-pointer"
-              onClick={() => dispatch(increaseProductCount(product))}
-            >
-              +
-            </span>
-          </div>
+          <IncreaseDecreaseBtn
+            product={item}
+            handleMutateBasket={handleMutateBasket}
+          />
           <div className="w-[200px]">
             <ReusableButton textColor="text-white" bgColor={"bg-primary500"}>
               ADD TO CARD

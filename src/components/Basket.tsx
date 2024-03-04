@@ -11,21 +11,30 @@ import { TProduct } from "@/types";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { useAppSelector } from "@/app/hooks";
+import { useBasket } from "@/hooks/basket/useBasket";
+import { useAddBasket } from "@/hooks/basket/useAddBasket";
+import { useDeleteBasket } from "@/hooks/basket/useDeleteBasket";
 
 const Basket: React.FC = () => {
-  const basket = useAppSelector((state) => state.basket.basket);
-  const totalPrice = basket.reduce((acc, curr) => {
-    const price =
-      curr.productCount *
-      (curr.discountPercent
-        ? curr.salePrice - (curr.salePrice * curr.discountPercent) / 100
-        : curr.salePrice);
-    return acc + price;
-  }, 0);
+  const { data: basket, isLoading } = useBasket();
+  const { mutate, isPending } = useAddBasket();
+  const { mutate: deleteBasket, isPending: deletePending } = useDeleteBasket();
 
-  const basketLength = basket.reduce((acc, curr) => {
-    return acc + curr.productCount;
-  }, 0);
+  // const basket = useAppSelector((state) => state.basket.basket);
+  // const totalPrice = basket.reduce((acc, curr) => {
+  //   const price =
+  //     curr.productCount *
+  //     (curr.discountPercent
+  //       ? curr.salePrice - (curr.salePrice * curr.discountPercent) / 100
+  //       : curr.salePrice);
+  //   return acc + price;
+  // }, 0);
+
+  // const basketLength = basket.reduce((acc, curr) => {
+  //   return acc + curr.productCount;
+  // }, 0);
+
+  const basketLength = basket?.basketItems.length;
 
   return (
     <Popover>
@@ -43,14 +52,14 @@ const Basket: React.FC = () => {
           <span className="ml-1.5 text-gray600">({basketLength})</span>
         </h4>
         <div>
-          {basket.map((product: TProduct) => (
+          {basket?.basketItems?.map((product: TProduct) => (
             <SmallProductCard key={product._id} product={product} />
           ))}
         </div>
         <div className="flex align-center justify-between p-4">
           <span className="text-sm text-gray700 font-normal">Sub-total:</span>
           <span className="text-sm text-gray900 font-medium">
-            ₼ {totalPrice.toFixed(2)}
+            ₼ {basket?.totalAmount}
           </span>
         </div>
         <div className="px-4 mb-3">

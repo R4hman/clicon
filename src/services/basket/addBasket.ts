@@ -6,6 +6,7 @@ type TAddBasket = {
 };
 export const addBasket = async (data: TAddBasket) => {
   try {
+    console.log("data", data);
     const token = getCookie("accessToken");
 
     if (!token) {

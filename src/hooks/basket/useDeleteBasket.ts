@@ -21,17 +21,14 @@
 //   };
 // };
 
-import { addBasket } from "@/services/basket/addBasket";
+import { deleteBasket } from "@/services/basket/deleteBasket";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-type TAddBasket = {
-  productId: string;
-  count: number;
-};
-export const useAddBasket = () => {
+
+export const useDeleteBasket = () => {
   const queryClient = useQueryClient();
 
   const { mutate, isIdle, isPending, isError, error } = useMutation({
-    mutationFn: addBasket,
+    mutationFn: deleteBasket,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["baskets"] });
     },
