@@ -8,58 +8,45 @@ export function cn(...inputs: ClassValue[]) {
 export const getImage = (arr: any[]): string => {
   const image = arr.find((item) => item.imageStatus);
 
-  return image.imageUrl;
+  return image?.imageUrl;
 };
 
 export const calculatePrice = (
   discountPercent: number,
   price: number
-): string => {
-  return (
-    discountPercent ? price - (price * discountPercent) / 100 : price
-  )?.toFixed(1);
+): number => {
+  return discountPercent ? price - (price * discountPercent) / 100 : price;
+  // return (
+  //   discountPercent ? price - (price * discountPercent) / 100 : price
+  // )?.toFixed(2);
 };
 
-export function setCookie(
-  name: string,
-  value: string,
-  daysToExpire: number
-): void {
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + daysToExpire);
+export const setCookie = (key, value) => {
+  //   const date = new Date();
+  //   date.setTime(date.getTime() + 5 * 2890 * 1000);
+  //   const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `${key}=${value}; max-age=3600; path=/`;
+};
 
-  const cookieString = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
+export const getCookie = (name) => {
+  if (document.cookie) {
+    const cDecoded = decodeURIComponent(document.cookie);
 
-  document.cookie = cookieString;
-}
+    const cArray = cDecoded.split("; ");
+    let result = null;
 
-// export function getCookie(name: string): string | null {
-//   console.log("document.cookie", document.cookie);
-//   const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
-//   console.log("cookies", cookies);
+    cArray.forEach((element) => {
+      if (element.indexOf(name) == 0) {
+        result = element.substring(name.length + 1);
+      }
+    });
 
-//   for (const cookie of cookies) {
-//     const [cookieName, cookieValue] = cookie.split("=");
-
-//     if (cookieName === name) {
-//       return decodeURIComponent(cookieValue);
-//     }
-//   }
-
-//   return null;
-// }
-
-export function getCookie(name: string): string | null {
-  const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
-
-  for (const cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.split("=");
-
-    // Check for matching cookie name (case-sensitive)
-    if (cookieName.trim() === name) {
-      return decodeURIComponent(cookieValue);
-    }
+    return result;
   }
+};
 
-  return null; // Cookie not found
-}
+export const deleteCookie = (names) => {
+  names.forEach((name) => {
+    setCokieHandler(name, null, null);
+  });
+};

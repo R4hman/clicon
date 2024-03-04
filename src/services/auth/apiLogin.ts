@@ -34,10 +34,10 @@ export const login = async (data: TSignUp): Promise<TLoginUser> => {
     console.log("data", data);
     const response = await axios.post<TLoginUser>(
       `${import.meta.env.VITE_BASE_URL}/v1/auth/login`,
-      data,
-      {
-        withCredentials: true,
-      }
+      data
+      // {
+      //   withCredentials: true,
+      // }
     );
     console.log("Response", response.data);
     return response.data;

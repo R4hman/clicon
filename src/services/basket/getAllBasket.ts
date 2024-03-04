@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 export const getAllBasket = async (): Promise<unknown> => {
   try {
     const token = getCookie("accessToken");
+    console.log("token: " + token);
 
     const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/basketItems`, {
       headers: {

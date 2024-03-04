@@ -11,7 +11,7 @@ import { getAllBasket } from "@/services/basket/getAllBasket.ts";
 export function useBasket() {
   const { data, isLoading } = useQuery({
     queryKey: ["baskets"],
-    queryFn: () => getAllBasket(),
+    queryFn: getAllBasket,
     refetchOnWindowFocus: false,
   });
 

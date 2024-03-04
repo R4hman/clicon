@@ -10,37 +10,12 @@ import { addOrRemoveBasket } from "@/app/features/basketSlice";
 import { useDispatch } from "react-redux";
 import { useBasket } from "@/hooks/basket/useBasket";
 import { calculatePrice } from "@/lib/utils";
+import { useAddBasket } from "@/hooks/basket/useAddBasket";
+import { useDeleteBasket } from "@/hooks/basket/useDeleteBasket";
+import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
 
 const ShoppingCard: FC = (): ReactElement => {
-  // const basket = useSelector((state: RootState) => state.basket.basket);
-  const { data: basket, isLoading } = useBasket();
-  const dispatch = useDispatch();
-
-  const subTotal: number = useMemo(() => {
-    if (!basket?.basketItems || basket.basketItems.length === 0) {
-      return 0;
-    }
-
-    return basket.basketItems.reduce((acc, curr) => {
-      const count = curr.count ?? 0;
-      const productId = curr.productId;
-
-      if (!productId || typeof productId !== "object") {
-        return acc;
-      }
-
-      const discountPercent = productId.discountPercent ?? 0;
-      const salePrice = productId.salePrice ?? 0;
-
-      return acc + count * +calculatePrice(discountPercent, salePrice);
-    }, 0);
-  }, [basket]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  console.log("basket", basket);
+  const { basket, handleMutateBasket } = CustomBasketHook();
 
   return (
     <section className="container mx-auto">
@@ -63,7 +38,7 @@ const ShoppingCard: FC = (): ReactElement => {
               <div key={item.productId._id} className="flex items-center p-6 ">
                 <div className="flex items-center gap-x-3 basis-2/5 ">
                   <span
-                    onClick={() => dispatch(addOrRemoveBasket(item))}
+                    onClick={() => handleMutateBasket(item, "remove")}
                     className="border rounded-full w-4 h-4 border-gray-400 p-2 transition-all hover:scale-125 cursor-pointer flex items-center justify-center text-gray-500"
                   >
                     ×
@@ -81,10 +56,6 @@ const ShoppingCard: FC = (): ReactElement => {
                   </span>
                   <span>
                     ₼
-                    {/* {item.productId.discountPercent
-                      ? item.productId.salePrice -
-                        (item.productId.salePrice * item.productId.discountPercent) / 100
-                      : item.productId.salePrice} */}
                     {calculatePrice(
                       item.productId.discountPercent,
                       item.productId.salePrice
@@ -98,13 +69,17 @@ const ShoppingCard: FC = (): ReactElement => {
               >
                 {product.stockCount ? "IN STOCK" : "OUT OF STOCK"}
               </div> */}
+
                 <div className="basis-1/5">
-                  <IncreaseDecreaseBtn product={item} />
+                  <IncreaseDecreaseBtn
+                    product={item}
+                    handleMutateBasket={handleMutateBasket}
+                  />
                 </div>
                 <div className="basis-1/5 ">
                   <span>
                     ₼
-                    {(
+                    {/* {(
                       item.count *
                       (item.productId.discountPercent
                         ? item.productId.salePrice -
@@ -112,7 +87,14 @@ const ShoppingCard: FC = (): ReactElement => {
                             item.productId.discountPercent) /
                             100
                         : item.productId.salePrice)
-                    ).toFixed(1)}
+                    ).toFixed(2)} */}
+                    {(
+                      item.count *
+                      calculatePrice(
+                        item.productId.discountPercent,
+                        item.productId.salePrice
+                      )
+                    ).toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -124,7 +106,7 @@ const ShoppingCard: FC = (): ReactElement => {
           <h4 className="mb-5">Order Summary</h4>
           <div className="flex flex-col space-y-3">
             <h4 className="flex items-center justify-between">
-              Sub-total <span>₼ {subTotal?.toFixed(1)}</span>
+              Sub-total <span>₼ {basket?.totalAmount}</span>
             </h4>
             <h4 className="flex items-center justify-between">
               Shipping <span>Free</span>

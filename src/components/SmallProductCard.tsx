@@ -1,4 +1,5 @@
 import { useProducts } from "@/hooks/useProducts";
+import { calculatePrice } from "@/lib/utils";
 import { TProduct } from "@/types";
 import React from "react";
 
@@ -28,24 +29,28 @@ const SmallProductCard: React.FC<TSmallCard> = ({ product, productId }) => {
 
   return (
     <article className="flex items-center p-3 gap-2.5 border rounded-[3px] border-gray-100">
-      {/* <img
-        src={product?.images[0]?.imageUrl}
+      <img
+        src={product?.productId.images[0]?.imageUrl}
         className="w-[80px] h-[80px] object-cover"
         alt="product photo"
       />
       <div className="flex flex-col">
         <h4 className="text-sm font-normal text-gray-900">{product.name}</h4>
         <h5 className="text-[14px] font-normal text-gray-900">
-          {product.description}
+          {product.productId.description}
         </h5>
 
         <div className="flex items-center gap-x-0.5">
-          <span className="text-sm">{product.productCount}</span>×
+          <span className="text-sm">{product.count}</span>×
           <span className="text-sm font-semibold text-secondary500">
-            ₼ {price}
+            ₼
+            {calculatePrice(
+              product.productId.discountPercent,
+              product.productId.salePrice
+            )}
           </span>{" "}
         </div>
-      </div> */}
+      </div>
     </article>
   );
 };

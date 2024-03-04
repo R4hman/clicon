@@ -15,8 +15,8 @@ export const useLogin = () => {
     onSuccess: (data: TLoginUser) => {
       console.log("data", data);
       dispatch(userLogin(data));
-      setCookie("refreshToken", data.refreshTokenJWT, 7);
-      setCookie("accessToken", data.accessTokenJwt, 7);
+      setCookie("refreshToken", data.refreshTokenJWT);
+      setCookie("accessToken", data.accessTokenJwt);
       navigate("/");
     },
     onError: (err) => {
