@@ -34,7 +34,7 @@ const Basket: React.FC = () => {
   //   return acc + curr.productCount;
   // }, 0);
 
-  const basketLength = basket?.basketItems.length;
+  const basketLength = basket?.basketItems.length || 0;
 
   return (
     <Popover>

@@ -7,7 +7,7 @@ import { FaArrowRight, FaEyeSlash } from "react-icons/fa";
 import { z } from "zod";
 
 import ReusableButton from "@/components/reusable/ReusableButton";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { TLogin } from "@/types";
 import { register as registerApi } from "../services/auth/apiRegister";
 
