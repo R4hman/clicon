@@ -1,28 +1,29 @@
 import { getCookie } from "@/lib/utils";
 import toast from "react-hot-toast";
-export const getAllBasket = async (): Promise<unknown> => {
+
+export const getCurrentUser = async (): Promise<unknown> => {
   try {
     const token = getCookie("accessToken");
-    if (!token) {
-      return;
-    }
-    console.log("token: " + token);
 
-    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/basketItems`, {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/v1/users/me`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       credentials: "include",
     });
-    const responseData = await res.json();
+    const data = await res.json();
+
     if (!res.ok) {
       console.log("Res", res);
-      throw new Error(`HTTP error! Status: ${res.status}, ${responseData.msg}`);
+      throw new Error(`HTTP error! Status: ${res.status}, ${data.msg}`);
     }
-    return responseData;
+
+    console.log("data", data);
+
+    return data;
   } catch (error: unknown) {
-    console.error("Error during registration:", error);
+    console.error("Error getting user", error);
     toast.error(
       typeof error === "string" ? error : (error as { message: string }).message
     );

@@ -137,3 +137,10 @@ export type TVerifyEmail = {
   verificationToken: string;
   email: string;
 };
+
+export type TChangeUserInfo = {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  address: string;
+};

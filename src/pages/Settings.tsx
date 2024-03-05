@@ -1,52 +1,128 @@
-import React, { FC, ReactElement } from "react";
+import { changeUserInfo } from "@/services/user/changeUserInfo";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, ReactElement, useEffect, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import defaultPic from "../assets/defaultProfilePhoto.png";
+import useCurrentUser from "@/hooks/user/useCurrentUser";
+import ReusableButton from "@/components/reusable/ReusableButton";
+
+const userInfoSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  userName: z.string(),
+  address: z.string(),
+});
+
+const userNewPasswordSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(10, "Password must be at least 10 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
+  });
+
+type TUserInfoSchema = z.infer<typeof userInfoSchema>;
 
 const Settings: FC = (): ReactElement => {
+  const { user, userIsLoading } = useCurrentUser();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    setError,
+    watch,
+    getValues,
+  } = useForm<TUserInfoSchema>({
+    resolver: zodResolver(userInfoSchema),
+  });
+
+  console.log("user", user);
+
+  const onSubmit: SubmitHandler<TUserInfoSchema> = (data: TUserInfoSchema) => {
+    Object.entries(data).forEach((value) => {
+      if (value[1] === "") {
+        delete data[value[0]];
+      }
+    });
+
+    changeUserInfo(data).then((res) => console.log("res", res));
+
+    reset();
+  };
+
+  if (userIsLoading) {
+    return <div>loading..</div>;
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex space-x-2">
-        <img src="" className="basis-1/3" alt="user img" />
-        <div className="  ">
+        <img
+          src={defaultPic}
+          className="basis-1/3 w-[150px] h-[150px] object-contain"
+          alt="user img"
+        />
+        <form
+          onSubmit={handleSubmit((data: TUserInfoSchema) => onSubmit(data))}
+          className="  "
+        >
           <div className="flex items-center space-x-10">
             <div className="flex flex-col space-y-2">
-              <label htmlFor="first-name">First Name</label>
+              <label htmlFor="firstName">First Name</label>
               <input
+                {...register("firstName")}
                 type="text"
-                id="first-name"
+                id="firstName"
                 className="border-[2px]  border-gray-200 rounded-[4px] p-3 w-[350px]"
-                placeholder="First Name"
+                placeholder={user?.user?.firstName || "first name"}
               />
             </div>
             <div className="flex flex-col space-y-2">
-              <label htmlFor="last-name">Last Name</label>
+              <label htmlFor="lastName">Last Name</label>
               <input
-                id="last-name"
+                {...register("lastName")}
+                id="lastName"
                 type="text"
                 className="border-[2px]  border-gray-200 rounded-[4px] p-3 w-[350px]"
-                placeholder="Last Name"
+                placeholder={user?.user?.lastName || "last name"}
               />
             </div>
           </div>
           <div className="flex items-center space-x-10">
             <div className="flex flex-col space-y-2">
-              <label htmlFor="first-name">First Name</label>
+              <label htmlFor="userName">Username</label>
               <input
+                {...register("userName")}
                 type="text"
-                id="first-name"
+                id="userName"
                 className="border-[2px]  border-gray-200 rounded-[4px] p-3 w-[350px]"
-                placeholder="First Name"
+                placeholder={user?.user?.userName || "username"}
               />
             </div>
             <div className="flex flex-col space-y-2">
-              <label htmlFor="last-name">Last Name</label>
+              <label htmlFor="address">Address</label>
               <input
-                id="last-name"
+                {...register("address")}
+                id="address"
                 type="text"
                 className="border-[2px]  border-gray-200 rounded-[4px] p-3 w-[350px]"
-                placeholder="Last Name"
+                placeholder={user?.user?.address || "address"}
               />
             </div>
           </div>
-        </div>
+          <ReusableButton
+            textColor="text-white"
+            bgColor={"bg-primary500"}
+            type="submit"
+          >
+            SAVE CHANGES
+          </ReusableButton>
+        </form>
       </div>
     </div>
   );
