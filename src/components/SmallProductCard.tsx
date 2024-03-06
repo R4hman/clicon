@@ -6,9 +6,14 @@ import React from "react";
 type TSmallCard = {
   product?: TProduct;
   productId?: string;
+  checkout?: boolean;
 };
 
-const SmallProductCard: React.FC<TSmallCard> = ({ product, productId }) => {
+const SmallProductCard: React.FC<TSmallCard> = ({
+  product,
+  productId,
+  checkout = false,
+}) => {
   // eger productId varsa get useProductdan hemin id -ye uygun producttu tap, yoxdursa ikinci paramentr false olacaq ve useProducts calisamayacaq
   const { data, isLoading } = useProducts(
     `https://clicon.onrender.com/api/v1/products${productId}`,
@@ -28,7 +33,11 @@ const SmallProductCard: React.FC<TSmallCard> = ({ product, productId }) => {
   //   : 0;
 
   return (
-    <article className="flex items-center p-3 gap-2.5 border rounded-[3px] border-gray-100">
+    <article
+      className={`flex items-center ${
+        checkout ? "" : "p-3 border-gray-100 border"
+      } gap-2.5  rounded-[3px] `}
+    >
       <img
         src={product?.productId.images[0]?.imageUrl}
         className="w-[80px] h-[80px] object-cover"

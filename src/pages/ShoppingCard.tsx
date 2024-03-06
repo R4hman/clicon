@@ -13,10 +13,18 @@ import { calculatePrice } from "@/lib/utils";
 import { useAddBasket } from "@/hooks/basket/useAddBasket";
 import { useDeleteBasket } from "@/hooks/basket/useDeleteBasket";
 import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
+import { Link } from "react-router-dom";
 
 const ShoppingCard: FC = (): ReactElement => {
-  const { basket, handleMutateBasket } = CustomBasketHook();
+  const { basket, handleMutateBasket, isLoading } = CustomBasketHook();
+  const tax = (basket?.totalAmount * 3) / 100;
+  const total = basket?.totalAmount + tax;
 
+  if (isLoading) {
+    return <div>...</div>;
+  }
+
+  console.log("basket", basket);
   return (
     <section className="container mx-auto">
       <div className="flex space-x-5 my-10">
@@ -34,35 +42,39 @@ const ShoppingCard: FC = (): ReactElement => {
           </div>
           <div className="flex flex-col">
             {/* first product */}
-            {basket?.basketItems?.map((item) => (
-              <div key={item.productId._id} className="flex items-center p-6 ">
-                <div className="flex items-center gap-x-3 basis-2/5 ">
-                  <span
-                    onClick={() => handleMutateBasket(item, "remove")}
-                    className="border rounded-full w-4 h-4 border-gray-400 p-2 transition-all hover:scale-125 cursor-pointer flex items-center justify-center text-gray-500"
-                  >
-                    ×
-                  </span>
-                  <img
-                    className="w-[72px] h-[72px]"
-                    src={getImage(item.productId.images)}
-                    alt="wishlist product photo"
-                  />
-                  <h4 className="text-md mr-5 ">{item.productId.name}</h4>
-                </div>
-                <div className="basis-1/5 text-sm space-x-1  text-gray-400">
-                  <span className="line-through">
-                    ₼{item.productId.salePrice}
-                  </span>
-                  <span>
-                    ₼
-                    {calculatePrice(
-                      item.productId.discountPercent,
-                      item.productId.salePrice
-                    )}
-                  </span>
-                </div>
-                {/* <div
+            {!isLoading &&
+              basket?.basketItems?.map((item) => (
+                <div
+                  key={item.productId._id}
+                  className="flex items-center p-6 "
+                >
+                  <div className="flex items-center gap-x-3 basis-2/5 ">
+                    <span
+                      onClick={() => handleMutateBasket(item, "remove")}
+                      className="border rounded-full w-4 h-4 border-gray-400 p-2 transition-all hover:scale-125 cursor-pointer flex items-center justify-center text-gray-500"
+                    >
+                      ×
+                    </span>
+                    <img
+                      className="w-[72px] h-[72px]"
+                      src={getImage(item.productId.images)}
+                      alt="wishlist product photo"
+                    />
+                    <h4 className="text-md mr-5 ">{item.productId.name}</h4>
+                  </div>
+                  <div className="basis-1/5 text-sm space-x-1  text-gray-400">
+                    <span className="line-through">
+                      ₼{item.productId.salePrice}
+                    </span>
+                    <span>
+                      ₼
+                      {calculatePrice(
+                        item.productId.discountPercent,
+                        item.productId.salePrice
+                      )}
+                    </span>
+                  </div>
+                  {/* <div
                 className={`basis-1/5 ${
                   product.stockCount ? "text-green-600" : "text-red-500"
                 }`}
@@ -70,16 +82,16 @@ const ShoppingCard: FC = (): ReactElement => {
                 {product.stockCount ? "IN STOCK" : "OUT OF STOCK"}
               </div> */}
 
-                <div className="basis-1/5">
-                  <IncreaseDecreaseBtn
-                    product={item}
-                    handleMutateBasket={handleMutateBasket}
-                  />
-                </div>
-                <div className="basis-1/5 ">
-                  <span>
-                    ₼
-                    {/* {(
+                  <div className="basis-1/5">
+                    <IncreaseDecreaseBtn
+                      product={item}
+                      handleMutateBasket={handleMutateBasket}
+                    />
+                  </div>
+                  <div className="basis-1/5 ">
+                    <span>
+                      ₼
+                      {/* {(
                       item.count *
                       (item.productId.discountPercent
                         ? item.productId.salePrice -
@@ -88,17 +100,17 @@ const ShoppingCard: FC = (): ReactElement => {
                             100
                         : item.productId.salePrice)
                     ).toFixed(2)} */}
-                    {(
-                      item.count *
-                      calculatePrice(
-                        item.productId.discountPercent,
-                        item.productId.salePrice
-                      )
-                    ).toFixed(2)}
-                  </span>
+                      {(
+                        item.count *
+                        calculatePrice(
+                          item.productId.discountPercent,
+                          item.productId.salePrice
+                        )
+                      ).toFixed(2)}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 
@@ -111,25 +123,31 @@ const ShoppingCard: FC = (): ReactElement => {
             <h4 className="flex items-center justify-between">
               Shipping <span>Free</span>
             </h4>
-            <h4 className="flex items-center justify-between">
+            {/* <h4 className="flex items-center justify-between">
               Discount <span>₼30</span>
-            </h4>
+            </h4> */}
             <h4 className="flex items-center justify-between">
-              Tax <span>₼320</span>
+              Tax <span>₼ {tax}</span>
             </h4>
           </div>
           <div className="w-full h-[1.5px] bg-gray-200 my-5"></div>
           <h4 className="flex items-center justify-between mb-5">
-            Total <span>₼320</span>
+            Total <span>₼ {total}</span>
           </h4>
-          <ReusableButton
-            // bgColor={isSubmitting ? "bg-gray-500" : "bg-primary500"}
-            bgColor={"bg-primary500"}
-            // disabled={isSubmitting}
-            textColor="text-white"
+          <Link
+            to="/checkout"
+            state={{
+              total,
+              tax,
+              subTotal: basket?.totalAmount,
+            }}
+            className="
+
+
+           flex items-center justify-center gap-x-2 w-full bg-primary500 text-white rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all"
           >
             PLACE ORDER <FaArrowRight />
-          </ReusableButton>
+          </Link>
         </div>
       </div>
     </section>

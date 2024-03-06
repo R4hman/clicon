@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { TCategory } from "@/types";
 import { useBrands } from "@/hooks/useBrands";
 import { TFilterOptions } from "../types";
+import PageLoader from "./reusable/PageLoader";
 
 const priceRanges = [
   { min: 0, max: 20 },
@@ -52,7 +53,11 @@ const Category: React.FC<TCategoryProps> = ({
   };
 
   if (isLoading || brandsLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <PageLoader />
+      </div>
+    );
   }
   return (
     <section className="py-10">

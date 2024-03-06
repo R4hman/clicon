@@ -41,16 +41,14 @@ const Header: React.FC = () => {
     <main className="flex items-center justify-center px-6 bg-secondary700 border-b border-white ">
       <nav className="container mx-auto p-[12px] flex items-center justify-between">
         <div className="text-[12px] sm:text-sm text-white">
-          Welcome to Clicon online eCommerce store.
+          Welcome to Shopem online eCommerce store.
         </div>
         <div className="flex items-center  ">
           <div className="hidden items-center border-r pr-4 md:flex">
             <div className="text-white mr-2">Follow us:</div>
             <div className="flex items-center gap-2">
-
               {sets.map((item) => (
                 <Link key={uuidv4()} to={item.url}>
-
                   <div className="text-white w-4 min-h-4">{item.icon}</div>
                 </Link>
               ))}

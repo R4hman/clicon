@@ -49,6 +49,7 @@
     "react-resizable-panels": "^1.0.7",
     "react-router-dom": "^6.21.1",
     "redux-persist": "^6.0.0",
+    "stripe": "^14.19.0",
     "swiper": "^11.0.5",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",

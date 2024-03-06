@@ -44,7 +44,7 @@ const VerifyEmail: FC = (): ReactElement => {
           </h3>
           <p className="text-sm text-gray600 text-center">
             Enter the email address or mobile phone number associated with your
-            Clicon account.
+            Shopem account.
           </p>
         </div>
         <ReusableButton

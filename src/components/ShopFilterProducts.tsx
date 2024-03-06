@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/select";
 import { v4 as uuidv4 } from "uuid";
 import { TFilterOptions } from "../types";
-import ShopFilterPagination from "./ShopFilterPagination";
+import CircularPageLoader from "./reusable/CircularPageLoader";
+import PageLoader from "./reusable/PageLoader";
 
 const sortData = [
   "Most popular",
@@ -145,7 +146,7 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
         </div>
         <div>{products?.totalProducts} nəticə tapıldı.</div>
       </div>
-      {productsLoading && <div>loading....</div>}
+      {productsLoading && <PageLoader />}
       {!productsLoading && (
         <div className="flex items-center justify-center md:justify-start gap-x-2 flex-wrap">
           {products.products.map((product) => (

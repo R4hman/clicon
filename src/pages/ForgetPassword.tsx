@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -8,20 +7,19 @@ import { z } from "zod";
 
 import ReusableButton from "@/components/reusable/ReusableButton";
 import { Link } from "react-router-dom";
+import { FC } from "react";
 const forgetPasswordSchema = z.object({
   email: z.string().email(),
 });
 
 type TForgetPasswordSchema = z.infer<typeof forgetPasswordSchema>;
 
-const ForgetPassword: React.FC = () => {
+const ForgetPassword: FC = () => {
   const {
     register,
     handleSubmit,
     reset,
-    getValues,
     formState: { errors, isSubmitting },
-    setError,
   } = useForm<TForgetPasswordSchema>({
     resolver: zodResolver(forgetPasswordSchema),
   });
@@ -41,7 +39,7 @@ const ForgetPassword: React.FC = () => {
           </h3>
           <p className="text-sm text-gray600 text-center">
             Enter the email address or mobile phone number associated with your
-            Clicon account.
+            Shopem account.
           </p>
         </div>
         <div className="flex items-center  justify-center w-full mt-6 ">

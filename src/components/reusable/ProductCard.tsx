@@ -12,6 +12,12 @@ import { RootState } from "@/app/store";
 import { useAddBasket } from "@/hooks/basket/useAddBasket";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { useSelector } from "react-redux";
+import {
+  Location,
+  Navigation,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 type TProductCard = {
   product: TProduct;
@@ -23,9 +29,10 @@ const ProductCard: React.FC<TProductCard> = ({
   main,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
+  const location: Location = useLocation();
+  const navigate = useNavigate();
   const favs = useAppSelector((state: RootState) => state.favorites.favorites);
   const { mutate, isPending } = useAddBasket();
-  const user = useSelector((state: RootState) => state.user);
 
   const inFavorite: boolean = !!favs.filter((item) => item._id === product._id)
     .length;
@@ -34,14 +41,19 @@ const ProductCard: React.FC<TProductCard> = ({
     dispatch(addOrRemoveFavorites(product));
   };
   const handleAddBasket = (data: TProduct): void => {
-    // dispatch(addOrRemoveBasket(data));
-    console.log("userBasket", user?.user?.basketItems);
-    console.log("handleAddBasket", data._id);
     mutate({ productId: data._id, count: 1 });
+  };
+
+  const handleNavigateProduct = (id: string): void => {
+    console.log("id", id, location.pathname);
+    if (location.pathname === "/shop") {
+      navigate(`${id}`);
+    }
   };
 
   return (
     <article
+      onClick={() => handleNavigateProduct(product._id)}
       className={`p-4 ${
         main
           ? "max-w-[286px] "

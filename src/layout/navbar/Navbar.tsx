@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
             className="order-3 hidden  md:order-1 lg:flex items-center  gap-x-2"
           >
             <img src={Logo} alt="Logo of the webpage" />
-            <span className="text-gray0 text-[32px] font-bold">Clicon</span>
+            <span className="text-gray0 text-[32px] font-bold">Shopem</span>
           </Link>
           <div className="rounded-2xl md:w-[500px] w-[400px] order-1 sm:order-2 shadow-navbarUser relative">
             <form>

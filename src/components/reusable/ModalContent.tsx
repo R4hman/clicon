@@ -19,6 +19,7 @@ import { TProduct } from "@/types";
 import IncreaseDecreaseBtn from "./IncreaseDecreaseBtn";
 import { useBasket } from "@/hooks/basket/useBasket";
 import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
+import CircularPageLoader from "./CircularPageLoader";
 
 type TModalContent = {
   product: TProduct;
@@ -78,7 +79,7 @@ const ModalContent: FC<TModalContent> = ({
     : product?.images;
 
   if (isProductLoading) {
-    return <div>loading..</div>;
+    return <CircularPageLoader />;
   }
 
   return (
