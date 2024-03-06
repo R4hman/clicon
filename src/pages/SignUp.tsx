@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { IoEyeSharp } from "react-icons/io5";
@@ -29,7 +29,7 @@ const signUpSchema = z
 
 type TSignUpSchema = z.infer<typeof signUpSchema>;
 
-const SignUp: React.FC<TSignUp> = ({ type, setType }) => {
+const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
   const [passwordIsClose, setPasswordIsClose] = useState<boolean>(true);
   const [confirmPasswordIsClose, setConfirmPasswordIsClose] =
     useState<boolean>(true);
@@ -48,12 +48,6 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }) => {
   });
 
   const onSubmit: SubmitHandler<TSignUpSchema> = (data: TSignUpSchema) => {
-    console.log(
-      "signup data",
-      data,
-      getValues("password"),
-      watch("confirmPassword")
-    );
     new Promise((resolve) => {
       setTimeout(() => {
         resolve("");

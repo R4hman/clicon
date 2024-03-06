@@ -16,11 +16,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/services/auth/apiLogin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Person: React.FC = () => {
   const accessToken = useMemo(() => getCookie("accessToken"), []);
   const refreshToken = useMemo(() => getCookie("refreshToken"), []);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -36,8 +37,11 @@ const Person: React.FC = () => {
           <DropdownMenuContent className="bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <Link to="/profile">Profile</Link>
+            <DropdownMenuItem
+              onClick={() => navigate("/profile")}
+              className="cursor-pointer"
+            >
+              Profile
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
               Logout

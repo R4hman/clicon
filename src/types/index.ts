@@ -138,9 +138,19 @@ export type TVerifyEmail = {
   email: string;
 };
 
+export type ChangeUserPassword = Omit<TRegister, "name">;
 export type TChangeUserInfo = {
+  firstName?: string;
+  lastName?: string;
+  userName?: string;
+  address?: string;
+};
+
+export type TOrder = {
   firstName: string;
   lastName: string;
-  userName: string;
+  phone: string;
   address: string;
+  email: string;
+  text?: string;
 };

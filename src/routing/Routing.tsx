@@ -12,7 +12,7 @@ import { TLogin } from "@/types";
 import Profile from "@/pages/Profile";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import ProfileLayout from "@/components/ProfileLayout";
-import Settings from "@/pages/Settings";
+import CircularPageLoader from "@/components/reusable/CircularPageLoader";
 
 // import Home from "@/pages/Home";
 // import Login from "@/pages/Login";
@@ -25,6 +25,7 @@ import Settings from "@/pages/Settings";
 // import VerifyEmail from "@/pages/VerifyEmail";
 // import Checkout from "@/pages/Checkout";
 // import ShoppingCard from "@/pages/ShoppingCard";
+// import Settings from "@/pages/Settings";
 
 const Home: LazyExoticComponent<FC> = lazy(() => import("@/pages/Home"));
 const Login: LazyExoticComponent<FC<TLogin>> = lazy(
@@ -56,11 +57,20 @@ const Checkout: LazyExoticComponent<FC> = lazy(
 const ShoppingCard: LazyExoticComponent<FC> = lazy(
   () => import("@/pages/ShoppingCard")
 );
+const Settings: LazyExoticComponent<FC> = lazy(
+  () => import("@/pages/Settings")
+);
+const OrderHistory: LazyExoticComponent<FC> = lazy(
+  () => import("@/pages/OrderHistory")
+);
+const PaymentComplete: LazyExoticComponent<FC> = lazy(
+  () => import("@/pages/PaymentComplete")
+);
 
 function Routing() {
   const [type, setType] = useState<string>("sign-in");
   return (
-    <Suspense fallback="loading...">
+    <Suspense fallback={<CircularPageLoader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -81,6 +91,7 @@ function Routing() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/shopping-card" element={<ShoppingCard />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment-completed" element={<PaymentComplete />} />
           <Route
             path="/profile"
             element={
@@ -94,6 +105,7 @@ function Routing() {
             <Route path="compare" element={<CompareProducts />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="my-orders" element={<OrderHistory />} />
           </Route>
           <Route path="*" element={<Page404 />} />
         </Route>

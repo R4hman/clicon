@@ -47,6 +47,6 @@ export const getCookie = (name) => {
 
 export const deleteCookie = (names) => {
   names.forEach((name) => {
-    setCokieHandler(name, null, null);
+    setCookie(name, null);
   });
 };

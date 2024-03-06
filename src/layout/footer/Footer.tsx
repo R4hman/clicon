@@ -23,7 +23,7 @@ function Footer() {
         <div className="flex flex-col gap-6 items-center sm:items-stretch">
           <RouterLink to="/" className="flex items-center gap-2">
             <img src={Logo} alt="Website Logo" />
-            <span className="text-gray0 text-[32px] font-bold">Clicon</span>
+            <span className="text-gray0 text-[32px] font-bold">Shopem</span>
           </RouterLink>
           <div className="flex flex-col gap-3 items-center sm:items-stretch">
             <nav>

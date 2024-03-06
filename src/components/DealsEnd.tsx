@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const getRestTime = (current: Date): string => {
-  const lastDate = new Date("2024-01-06");
+  const lastDate = new Date("2024-03-15");
   const lastDateTimestamp = Math.floor(lastDate.getTime() / 1000);
   const currentTimestamp = Math.floor(current.getTime() / 1000);
 

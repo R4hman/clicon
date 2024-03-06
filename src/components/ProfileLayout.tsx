@@ -13,7 +13,7 @@ const set = [
   {
     icon: <MdWorkHistory />,
     name: "Order History",
-    url: "orders",
+    url: "my-orders",
   },
   {
     icon: <CgTrack />,

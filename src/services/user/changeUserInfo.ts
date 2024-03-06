@@ -1,8 +1,8 @@
 import toast from "react-hot-toast";
-import { TChangeUserInfo } from "../../types";
+import { ChangeUserPassword, TChangeUserInfo } from "../../types";
 import { getCookie } from "@/lib/utils";
 export const changeUserInfo = async (
-  data: TChangeUserInfo
+  data: TChangeUserInfo | ChangeUserPassword
 ): Promise<unknown> => {
   try {
     const token = getCookie("accessToken");
