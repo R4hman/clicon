@@ -1,19 +1,19 @@
-import { RootState } from "@/app/store";
 import IncreaseDecreaseBtn from "@/components/reusable/IncreaseDecreaseBtn";
 import ReusableButton from "@/components/reusable/ReusableButton";
-import { FC, ReactElement, useMemo } from "react";
-import { SlBasket } from "react-icons/sl";
-import { useSelector } from "react-redux";
+import { FC, ReactElement } from "react";
 import { getImage } from "@/lib/utils";
 import { FaArrowRight } from "react-icons/fa";
-import { addOrRemoveBasket } from "@/app/features/basketSlice";
-import { useDispatch } from "react-redux";
-import { useBasket } from "@/hooks/basket/useBasket";
+
 import { calculatePrice } from "@/lib/utils";
-import { useAddBasket } from "@/hooks/basket/useAddBasket";
-import { useDeleteBasket } from "@/hooks/basket/useDeleteBasket";
+
 import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
 import { Link } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+const stripePromise = await loadStripe(
+  "pk_test_51OrO80FMi9pdYNXez3CeZXJQpwUUvxhbXGGfzxKKAHQkMeE18JQjmTQtdCK6FBnWbJAfO5tJt9K9JTY7AbQWFpY500DL2VZoFn"
+);
 
 const ShoppingCard: FC = (): ReactElement => {
   const { basket, handleMutateBasket, isLoading } = CustomBasketHook();
@@ -23,8 +23,44 @@ const ShoppingCard: FC = (): ReactElement => {
   if (isLoading) {
     return <div>...</div>;
   }
-
   console.log("basket", basket);
+  const products = basket?.basketItems.map(
+    ({ _id, userId, count, productId }) => ({
+      id: _id,
+      count,
+      userId,
+      image: productId.images[0].imageUrl,
+      name: productId.name,
+      price: calculatePrice(productId.discountPercent, productId.salePrice),
+    })
+  );
+  console.log("products", products);
+
+  const makePayment = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/v1/stripe/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(products),
+        }
+      );
+
+      const responseData = await response.json();
+
+      console.log("Response", responseData);
+
+      if (responseData.url) {
+        window.location.href = responseData.url;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <section className="container mx-auto">
       <div className="flex space-x-5 my-10">
@@ -134,7 +170,7 @@ const ShoppingCard: FC = (): ReactElement => {
           <h4 className="flex items-center justify-between mb-5">
             Total <span>₼ {total}</span>
           </h4>
-          <Link
+          {/* <Link
             to="/checkout"
             state={{
               total,
@@ -147,7 +183,20 @@ const ShoppingCard: FC = (): ReactElement => {
            flex items-center justify-center gap-x-2 w-full bg-primary500 text-white rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all"
           >
             PLACE ORDER <FaArrowRight />
-          </Link>
+          </Link> */}
+          {/* <button onClick={makePayment}>
+            PLACE ORDER <FaArrowRight />
+          </button> */}
+          <ReusableButton
+            disabled={!basket}
+            onClick={makePayment}
+            // style={{ width: "197px", marginTop: "1rem" }}
+            textColor="text-white"
+            bgColor={"bg-primary500"}
+            type="submit"
+          >
+            PLACE ORDER <FaArrowRight />
+          </ReusableButton>
         </div>
       </div>
     </section>

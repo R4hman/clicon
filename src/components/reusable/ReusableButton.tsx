@@ -31,7 +31,9 @@ const ReusableButton: React.FC<TReusableButton> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={` ${bgColor} ${borderColor} ${
+      className={` ${
+        disabled ? " disabled:bg-gray-400 cursor-not-allowed" : bgColor
+      } ${borderColor} ${
         borderColor && "border"
       } flex items-center justify-center gap-x-2 w-full ${textColor} rounded-[2px] py-3.5 capitalize hover:scale-105 transition-all `}
     >

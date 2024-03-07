@@ -13,6 +13,7 @@ import Profile from "@/pages/Profile";
 import ProtectedRoutes from "@/components/ProtectedRoutes";
 import ProfileLayout from "@/components/ProfileLayout";
 import CircularPageLoader from "@/components/reusable/CircularPageLoader";
+import PaymentCancel from "@/pages/PaymentCancel";
 
 // import Home from "@/pages/Home";
 // import Login from "@/pages/Login";
@@ -92,6 +93,7 @@ function Routing() {
           <Route path="/shopping-card" element={<ShoppingCard />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment-completed" element={<PaymentComplete />} />
+          <Route path="/payment-cancel" element={<PaymentCancel />} />
           <Route
             path="/profile"
             element={
