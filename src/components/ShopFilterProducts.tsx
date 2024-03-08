@@ -59,7 +59,6 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
     location.search
   );
   const handleSelectChange = (val: string): void => {
-    console.log("val", val);
     let key: string;
     if (val === "Aşağı qiymət" || val === "Yuxarı qiymət") {
       key = "price";
@@ -67,7 +66,8 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
       key = "name";
     }
 
-    console.log("key", key);
+    console.log("key: " + key, val);
+
     setFilterOptions((prev) => ({
       ...prev,
       [`${key}`]: val,
@@ -77,12 +77,16 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
   const activeFilters: string[] = [
     ...new Set(
       Object.entries(filterOptions).map((option) => {
-        if (option[1]) {
+        if (Array.isArray(option[1]) ? option[1].length : option[1]) {
           return nameAZVersion.find((name) => name[option[0]])?.[option[0]];
         }
       })
     ),
   ];
+
+  if (productsLoading) {
+    return <CircularPageLoader />;
+  }
 
   return (
     <div className="py-10 ">
@@ -146,7 +150,7 @@ const ShopFilterProducts: React.FC<TShopFilterProps> = ({
         </div>
         <div>{products?.totalProducts} nəticə tapıldı.</div>
       </div>
-      {productsLoading && <PageLoader />}
+
       {!productsLoading && (
         <div className="flex items-center justify-center md:justify-start gap-x-2 flex-wrap">
           {products.products.map((product) => (

@@ -11,7 +11,7 @@ import Person from "@/components/Person";
 
 const Navbar: React.FC = () => {
   const [inp, setInp] = useState("");
-  console.log("inp", inp);
+
   const navigate = useNavigate();
   return (
     <div>
@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
             className="order-3 hidden  md:order-1 lg:flex items-center  gap-x-2"
           >
             <img src={Logo} alt="Logo of the webpage" />
-            <span className="text-gray0 text-[32px] font-bold">Shopem</span>
+            <span className="text-gray0 text-[32px] font-bold">Shopbana</span>
           </Link>
           <div className="rounded-2xl md:w-[500px] w-[400px] order-1 sm:order-2 shadow-navbarUser relative">
             <form>

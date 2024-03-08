@@ -1,9 +1,17 @@
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import { FC, ReactElement } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { RootState } from "../app/store.ts";
+
+import Invoice from "@/features/order/invoice/Invoice";
+import ReusableButton from "@/components/reusable/ReusableButton";
+import { useSelector } from "react-redux";
 
 const PaymentComplete: FC = (): ReactElement => {
+  const { order, user } = useSelector((state: RootState) => state.order);
+
   return (
     <div className="container mx-auto flex items-center justify-center h-[524px]">
       <div className="flex flex-col space-y-3  items-center w-[400px]">
@@ -30,6 +38,20 @@ const PaymentComplete: FC = (): ReactElement => {
             <FaArrowRight className="ml-2" />
           </Link>
         </div>
+        <PDFDownloadLink
+          document={<Invoice user={user} order={order} />}
+          fileName="invoice.pdf"
+        >
+          {({ loading }) =>
+            loading ? (
+              <div>loading...</div>
+            ) : (
+              <ReusableButton className="cursor-pointer text-blue-400 underline">
+                Download invoice
+              </ReusableButton>
+            )
+          }
+        </PDFDownloadLink>
       </div>
     </div>
   );

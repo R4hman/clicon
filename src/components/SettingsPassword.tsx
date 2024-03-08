@@ -41,7 +41,6 @@ const SettingsPassword = () => {
   const onSubmit: SubmitHandler<TUserNewPasswordSchema> = (
     data: TUserNewPasswordSchema
   ) => {
-    console.log("password", data);
     // const newObj = Object.fromEntries(
     //   Object.entries(data).filter(([key, value]) => value !== "")
     // );

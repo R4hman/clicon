@@ -41,10 +41,10 @@ const SelectComponent: React.FC<TSelectComponent> = ({
       value={productValues[title] || ""}
       onValueChange={handleSelectChange}
     >
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full sm:w-[250px] md:w-full lg:w-[250px] ">
         <SelectValue placeholder={title} />
       </SelectTrigger>
-      <SelectContent className="bg-white">
+      <SelectContent className="bg-white  ">
         {data.map((item) => (
           <SelectItem key={uuidv4()} value={item}>
             {item}

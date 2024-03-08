@@ -50,3 +50,10 @@ export const deleteCookie = (names) => {
     setCookie(name, null);
   });
 };
+
+export function deleteCookies() {
+  const allCookies = document.cookie.split(";");
+
+  for (let i = 0; i < allCookies.length; i++)
+    document.cookie = allCookies[i] + "=;expires=" + new Date(0).toUTCString();
+}

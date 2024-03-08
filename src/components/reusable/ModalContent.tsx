@@ -85,11 +85,13 @@ const ModalContent: FC<TModalContent> = ({
   return (
     <div
       className={`bg-white ${
-        isModal ? "max-w-[62.5rem]" : "w-full"
-      } rounded-[4px]   p-10 flex  gap-x-14`}
+        isModal ? "bg-red-500 w-full max-w-[62.5rem]" : "w-full"
+      } rounded-[4px]    flex flex-col  md:flex-row md:gap-x-5 gap-x-5`}
     >
-      <ModalImage images={images && images} />
-      <div className="flex-1 w-[500px]">
+      <ModalImage images={images && images} isModal={isModal} />
+      <div
+        className={`flex-1 w-full ${isModal ? "w-full" : "md:w-[380px]"}   `}
+      >
         <div className="flex items-center gap-x-2 mb-2">
           <div className="flex items-center">
             {Array.from({ length: 5 }, (_, i) => (
@@ -128,7 +130,11 @@ const ModalContent: FC<TModalContent> = ({
           {/* <span>{product?.price}</span> */}
         </div>
         <div className="w-full h-[1.3px] my-6 bg-gray100"></div>
-        <div className="flex justify-between  flex-wrap gap-6 mb-6">
+        <div
+          className={` ${
+            isModal ? "hidden sm:flex" : "flex"
+          }  items-center flex-wrap w-full gap-y-5  justify-between gap-x-2 mb-6`}
+        >
           {/* <div>
               {product.colors?.map((color) => (
                 <input
@@ -188,7 +194,11 @@ const ModalContent: FC<TModalContent> = ({
             </div>
           </div>
         </div>
-        <div className="border border-gray-300 rounded-[5px] p-4">
+        <div
+          className={`${
+            isModal ? "hidden md:block" : ""
+          } border border-gray-300 rounded-[5px] p-4`}
+        >
           <h6>100% Guarantee Safe Checkout</h6>
           <div className="flex items-center"></div>
         </div>

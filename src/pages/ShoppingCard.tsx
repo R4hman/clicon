@@ -10,6 +10,7 @@ import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { setUserOrder } from "@/app/features/orderSlice";
 
 const stripePromise = await loadStripe(
   "pk_test_51OrO80FMi9pdYNXez3CeZXJQpwUUvxhbXGGfzxKKAHQkMeE18JQjmTQtdCK6FBnWbJAfO5tJt9K9JTY7AbQWFpY500DL2VZoFn"
@@ -23,7 +24,7 @@ const ShoppingCard: FC = (): ReactElement => {
   if (isLoading) {
     return <div>...</div>;
   }
-  console.log("basket", basket);
+
   const products = basket?.basketItems.map(
     ({ _id, userId, count, productId }) => ({
       id: _id,
@@ -34,10 +35,10 @@ const ShoppingCard: FC = (): ReactElement => {
       price: calculatePrice(productId.discountPercent, productId.salePrice),
     })
   );
-  console.log("products", products);
 
   const makePayment = async () => {
     try {
+      setUserOrder({ name: "order", value: products });
       const response = await fetch(
         "http://localhost:5000/api/v1/stripe/create-checkout-session",
         {
@@ -52,7 +53,6 @@ const ShoppingCard: FC = (): ReactElement => {
       const responseData = await response.json();
 
       console.log("Response", responseData);
-
       if (responseData.url) {
         window.location.href = responseData.url;
       }

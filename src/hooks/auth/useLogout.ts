@@ -1,24 +1,22 @@
-import { login } from "@/services/auth/apiLogin";
+import { logout } from "@/services/auth/apiLogin";
+import { logout as userLogout } from "@/app/features/userSlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { login as userLogin } from "@/app/features/userSlice";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { TLoginUser } from "@/types";
-import { setCookie } from "@/lib/utils";
+import { deleteCookies } from "@/lib/utils";
 
-export const useLogin = () => {
+export const useLogout = () => {
   const queryClient = useQueryClient();
   const navigate: NavigateFunction = useNavigate();
   const dispatch: Dispatch = useDispatch();
   const { mutate, isPending } = useMutation({
-    mutationFn: login,
-    onSuccess: (data: TLoginUser) => {
+    mutationFn: logout,
+    onSuccess: (data) => {
       console.log("data", data);
+      dispatch(userLogout());
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      dispatch(userLogin(data));
-      setCookie("refreshToken", data.refreshTokenJWT);
-      setCookie("accessToken", data.accessTokenJwt);
+      deleteCookies();
       navigate("/");
     },
     onError: (err) => {

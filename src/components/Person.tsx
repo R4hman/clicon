@@ -15,16 +15,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout } from "@/services/auth/apiLogin";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "@/hooks/auth/useLogout";
 
 const Person: React.FC = () => {
-  const accessToken = useMemo(() => getCookie("accessToken"), []);
-  const refreshToken = useMemo(() => getCookie("refreshToken"), []);
+  const accessToken = getCookie("accessToken");
+  const refreshToken = getCookie("refreshToken");
+  const { mutate, isPending } = useLogout();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    mutate();
   };
 
   return (

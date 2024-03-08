@@ -45,7 +45,6 @@ const ProductCard: React.FC<TProductCard> = ({
   };
 
   const handleNavigateProduct = (id: string): void => {
-    console.log("id", id, location.pathname);
     if (location.pathname === "/shop") {
       navigate(`${id}`);
     }
