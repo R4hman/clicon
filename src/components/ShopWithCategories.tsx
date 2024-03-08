@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import SwiperCarousel from "./reusable/SwiperCarousel";
 import { SwiperSlide } from "swiper/react";
 import { useCategories } from "@/hooks/useCategories";
+import PageLoader from "./reusable/PageLoader";
 
 const ShopWithCategories: React.FC = (): ReactElement => {
   const [innerWidth, setInnerWidth] = useState<number>(0);
@@ -11,7 +12,6 @@ const ShopWithCategories: React.FC = (): ReactElement => {
   );
 
   const handleResize = (): void => {
-    console.log("resized", window.innerWidth);
     setInnerWidth(window.innerWidth);
 
     // chrome restore down olanda
@@ -26,7 +26,6 @@ const ShopWithCategories: React.FC = (): ReactElement => {
       setslidesPerView(5);
     }
   };
-  console.log("screen width", screen.width);
 
   useEffect(() => {
     setInnerWidth(window.innerWidth);
@@ -35,7 +34,7 @@ const ShopWithCategories: React.FC = (): ReactElement => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PageLoader />;
   }
 
   return (

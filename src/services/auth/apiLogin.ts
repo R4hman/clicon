@@ -28,6 +28,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { TLoginUser, TSignUp } from "../../types";
+import { getCookie } from "@/lib/utils";
 
 export const login = async (data: TSignUp): Promise<TLoginUser> => {
   try {
@@ -69,12 +70,22 @@ export const login = async (data: TSignUp): Promise<TLoginUser> => {
 
 export const logout = async function () {
   try {
+    const token = getCookie("accessToken");
     const response = await fetch(
-      "https://clicon.onrender.com/api/v1/auth/logout"
+      `${import.meta.env.VITE_BASE_URL}/v1/auth/logout`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      }
     );
+    console.log("response", response);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("errror", error);
+    console.log("error", error);
   }
 };

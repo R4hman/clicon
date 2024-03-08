@@ -1,6 +1,5 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import SwiperCarousel from "./reusable/SwiperCarousel";
-import { v4 as uuidv4 } from "uuid";
 import { SwiperSlide } from "swiper/react";
 import ReactImageMagnify from "react-image-magnify";
 
@@ -12,18 +11,21 @@ type TProductImages = {
 
 type TModalImageProps = {
   images: TProductImages[];
+  isModal?: boolean;
 };
 
-const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
-  const [productImgs, setProductImgs] = useState(null);
+const ModalImage: FC<TModalImageProps> = ({
+  images,
+  isModal,
+}): ReactElement => {
+  const [productImgs, setProductImgs] = useState<unknown[] | null>(null);
   const [src, setSrc] = useState();
 
   useEffect(() => {
-    console.log("images", images);
     if (images) {
       setProductImgs(images);
       const mainImage = productImgs?.find((img) => img.imageStatus)?.imageUrl;
-      console.log("mainImage: " + mainImage);
+
       setSrc(mainImage);
     }
   }, [images, productImgs]);
@@ -32,8 +34,8 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
     return <div>loading...</div>;
   }
   return (
-    <div className="flex flex-1 w-[300px]  flex-col gap-y-6 ">
-      <div className="">
+    <div className={`flex flex-1  md:w-[400px]   flex-col gap-y-6 `}>
+      <div className={`${isModal ? "w-[300px]" : "w-full"} `}>
         <ReactImageMagnify
           {...{
             smallImage: {
@@ -50,7 +52,7 @@ const ModalImage: FC<TModalImageProps> = ({ images }): ReactElement => {
           isHintEnabled
         />
       </div>
-      <div className="h-[100px] ">
+      <div className={`${isModal ? "hidden sm:block" : ""} h-[100px]  `}>
         <SwiperCarousel
           dataToMap={images}
           slidesPerView={images?.length - 2}

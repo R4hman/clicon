@@ -6,10 +6,9 @@ type TRenderStars = {
 };
 
 export const RenderStars: React.FC<TRenderStars> = ({ rating }) => {
-  console.log("rating: " + rating);
   const maxStars = 5; // Maximum number of stars
   const filledStars = Math.min(Math.max(0, rating), maxStars); // Make sure rating is between 0 and maxStars
-  console.log("filledStars: ", filledStars);
+
   return Array.from({ length: maxStars }, (_, index) => (
     <FaStar
       key={index}

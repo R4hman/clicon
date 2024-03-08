@@ -113,11 +113,7 @@ const BestDeals: React.FC = () => {
   );
 
   if (isLoading) {
-    return (
-      <div>
-        <SpesificProductSkeleton />
-      </div>
-    );
+    return <SpesificProductSkeleton />;
   }
 
   return (
@@ -129,7 +125,7 @@ const BestDeals: React.FC = () => {
         </div>
         <Link
           className="text-secondary500 text-sm flex items-center gap-x-2"
-          to="/products"
+          to="/shop"
         >
           Browse all products
           <FaArrowRight />

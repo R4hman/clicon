@@ -1,11 +1,14 @@
+import { setUserOrder } from "@/app/features/orderSlice";
 import SmallProductCard from "@/components/SmallProductCard";
 import ReusableButton from "@/components/reusable/ReusableButton";
 import { useBasket } from "@/hooks/basket/useBasket";
 import { useOrder } from "@/hooks/order/useOrder";
+import { calculatePrice } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, ReactElement } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaArrowRight } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { z } from "zod";
 
@@ -23,8 +26,19 @@ const Checkout: FC = (): ReactElement => {
   const { data: basket, isLoading } = useBasket();
   const { mutate, isPending } = useOrder();
   const location = useLocation();
+  const dispatch = useDispatch();
 
-  console.log("location", location.state);
+  const products = basket?.basketItems.map(
+    ({ _id, userId, count, productId }) => ({
+      id: _id,
+      count,
+      userId,
+      image: productId.images[0].imageUrl,
+      name: productId.name,
+      price: calculatePrice(productId.discountPercent, productId.salePrice),
+    })
+  );
+
   const {
     register,
     handleSubmit,
@@ -39,12 +53,11 @@ const Checkout: FC = (): ReactElement => {
 
   const onSubmit: SubmitHandler<TCheckOutSchema> = (data: TCheckOutSchema) => {
     console.log("data", data);
-    mutate(data).then((res) => {
-      console.log("res", res);
-      // if (res.msg) {
-      //   navigate("/login");
-      // }
-    });
+
+    dispatch(setUserOrder({ value: data, name: "user" }));
+    dispatch(setUserOrder({ value: products, name: "order" }));
+
+    mutate(data);
     // reset();
   };
   return (

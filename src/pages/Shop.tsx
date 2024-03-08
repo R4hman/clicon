@@ -48,14 +48,14 @@ function Shop() {
   console.log("filterOptions", filterOptions);
 
   return (
-    <main className="container lg:px-2 lg:py-2 space-x-4 mx-auto mb-10 flex flex-col lg:flex-row ">
-      <section className="basis-1/4">
+    <main className="container lg:px-2 lg:py-2  space-x-4 mx-auto mb-10 flex flex-col lg:flex-row ">
+      <section className="basis-1/4 bg-red-500 ">
         <Category
           setFilterOptions={setFilterOptions}
           filterOptions={filterOptions}
         />
       </section>
-      <section className="flex flex-col w-full lg:w-[85%]">
+      <section className="flex flex-col   bg-green-600 lg:w-[67.5%] xl:w-[85%] ">
         <ShopFilterProducts
           setFilterOptions={setFilterOptions}
           filterOptions={filterOptions}

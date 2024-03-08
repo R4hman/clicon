@@ -5,6 +5,7 @@ import { TCarousel, TSlider } from "@/types";
 import { SwiperSlide } from "swiper/react";
 import { useSliders } from "../hooks/useSliders";
 import ReusableBestDealsProduct from "./reusable/ReusableBestDealsProduct";
+import PageLoader from "./reusable/PageLoader";
 
 const Sales: React.FC = () => {
   const { data, isLoading } = useSliders(
@@ -12,7 +13,7 @@ const Sales: React.FC = () => {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PageLoader />;
   }
 
   return (

@@ -31,16 +31,16 @@ const shipping = [
 const ProductInfo: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState("DESCRIPTION");
   return (
-    <div className="container mx-auto border rounded-[3px] border-gray-200">
+    <div className="container mx-auto border rounded-[3px] mt-10 border-gray-200">
       <header className="w-full p-4 flex items-center justify-center">
-        <ul className="flex items-center space-x-2">
+        <ul className="flex items-center flex-col md:flex-row space-x-2 space-y-4 md:space-y-0">
           {tabs.map((tab) => (
             <li
               onClick={() => setActiveTab(tab)}
               key={uuidv4()}
               className={`${
                 activeTab === tab
-                  ? "text-gray900 relative after:w-full after:h-[1.5px] after:bg-primary500  after:absolute after:top-[2.49rem]  after:left-0"
+                  ? "text-gray900 relative after:w-full after:h-[1.5px] after:bg-primary500  after:absolute after:top-[1.49rem] after:sm:top-[2.49rem]  after:left-0"
                   : "text-gray600"
               }  text-base cursor-pointer `}
             >
@@ -50,7 +50,7 @@ const ProductInfo: FC = (): ReactElement => {
         </ul>
       </header>
       <div className="p-6">
-        <div className="flex  gap-[1rem]">
+        <div className="flex flex-col lg:flex-row  gap-[1rem]">
           <div className="basis-1/2">
             <h3 className="mb-[1rem]">DESCRIPTION</h3>
             <p className="text-sm text-gray600">
@@ -64,7 +64,7 @@ const ProductInfo: FC = (): ReactElement => {
               whole new level for pro users.
             </p>
           </div>
-          <div className="basis-1/2 flex gap-[1rem]">
+          <div className="basis-1/2 flex flex-col sm:flex-row gap-[1rem]">
             <div>
               <h3 className="mb-[1rem]">FEATURE</h3>
               <ul className="">

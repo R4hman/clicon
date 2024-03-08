@@ -160,7 +160,7 @@ const Category: React.FC<TCategoryProps> = ({
             <div key={brand._id} className="w-[50%]">
               <input
                 onChange={handleBrandId}
-                className="accent-primary500 w-4 h-4 mr-1"
+                className=" size-4 mr-1 accent-primary500  rounded cursor-pointer"
                 type="checkbox"
                 value={brand._id}
                 id={brand._id}
