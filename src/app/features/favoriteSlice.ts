@@ -18,6 +18,7 @@ export const favoritesSlice = createSlice({
       const { _id } = action.payload;
 
       const item = state.favorites.find((fav) => fav._id === _id);
+      console.log("item", item);
 
       if (!item) {
         state.favorites.push(action.payload);

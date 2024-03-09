@@ -5,12 +5,21 @@ import { SlBasket } from "react-icons/sl";
 import { useSelector } from "react-redux";
 import { getImage } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
+import { useAddBasket } from "@/hooks/basket/useAddBasket";
+import { useDeleteBasket } from "@/hooks/basket/useDeleteBasket";
+import CustomBasketHook from "@/hooks/basket/CustomBasketHook";
+import { useDispatch } from "react-redux";
+import { addOrRemoveFavorites } from "@/app/features/favoriteSlice";
 
 const Wishlist: React.FC = () => {
   const wishlist = useSelector((state: RootState) => state.favorites.favorites);
-  const location = useLocation();
-  console.log("location state", location.state);
-  console.log("wishlist", wishlist);
+  const dispatch = useDispatch();
+  const { mutate, isPending } = useAddBasket();
+
+  const handleAddBasket = (data: TProduct): void => {
+    mutate({ productId: data._id, count: 1 });
+    dispatch(addOrRemoveFavorites(data));
+  };
 
   return (
     <section className="container px-0 py-0 mx-auto my-7  border border-gray-200 rounded-[3px]">
@@ -57,6 +66,7 @@ const Wishlist: React.FC = () => {
               <div className="basis-1/5 flex items-center gap-x-5">
                 <div className="basis-4/5">
                   <ReusableButton
+                    onClick={() => handleAddBasket(product)}
                     textColor="text-white"
                     bgColor={"bg-primary500"}
                   >
@@ -64,7 +74,10 @@ const Wishlist: React.FC = () => {
                     <SlBasket className="w-5 h-4" />
                   </ReusableButton>
                 </div>
-                <span className="border rounded-full w-4 h-4 border-gray-400 p-2 transition-all hover:scale-125 cursor-pointer flex items-center justify-center text-gray-500">
+                <span
+                  onClick={() => dispatch(addOrRemoveFavorites(product))}
+                  className="border rounded-full w-4 h-4 border-gray-400 p-2 transition-all hover:scale-125 cursor-pointer flex items-center justify-center text-gray-500"
+                >
                   ×
                 </span>
               </div>

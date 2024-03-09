@@ -58,7 +58,9 @@ const Invoice: FC = ({ user, order }): ReactElement => {
         <View
           style={{ width: "100%", flexDirection: "col", columnGap: "2rem" }}
         >
-          <View>{user.firstName}</View>
+          <View>
+            <Text>{user.firstName}</Text>
+          </View>
           <View>
             <Text>{user.lastName}</Text>
           </View>
