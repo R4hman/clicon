@@ -34,6 +34,8 @@ const Basket: React.FC = () => {
   //   return acc + curr.productCount;
   // }, 0);
 
+  console.log("basket", basket);
+
   const basketLength = basket?.basketItems.length || 0;
 
   return (

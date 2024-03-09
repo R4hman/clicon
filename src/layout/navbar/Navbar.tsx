@@ -45,7 +45,9 @@ const Navbar: React.FC = () => {
           <div className="flex order-2 sm:order-3 items-center gap-x-6">
             <Basket />
 
-            <CiHeart className="text-white w-6 sm:w-8 h-[32px] cursor-pointer" />
+            <Link to="/wishlist">
+              <CiHeart className="text-white w-6 sm:w-8 h-[32px] cursor-pointer" />
+            </Link>
             <Person />
           </div>
         </div>
