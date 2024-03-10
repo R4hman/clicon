@@ -70,7 +70,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
 
   return (
     <div className="flex items-center justify-center w-full h-[604px]">
-      <div className="shadow-loginShadow w-[420px] h-[550px]  pb-4">
+      <div className="shadow-loginShadow w-[510px] h-[550px]  pb-4">
         <div className="py-4 flex items-center border-b-2 border px-8 relative ">
           <span
             onClick={() => handleSwitch("sign-in")}
@@ -90,7 +90,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
 
             ${
               type === "sign-up"
-                ? "after:absolute after:top-[60px] after:left-[210px] after:p-[1px] after:w-[210px] after:bg-primary500 "
+                ? "after:absolute after:top-[60px] after:left-[210px] after:p-[1px] after:w-[295px] after:bg-primary500 "
                 : "text-gray500"
             }
             `}
@@ -103,7 +103,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
             className=" w-full p-10 rounded-[10px]"
             onSubmit={handleSubmit((data: TSignUpSchema) => onSubmit(data))}
           >
-            <div className="flex items-center">
+            <div className="flex items-center  space-x-2">
               <div className="flex flex-col gap-y-3 mb-3">
                 <label htmlFor="name">Ad</label>
 
@@ -132,7 +132,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <div className="flex flex-col gap-y-3 mb-3">
                 <label htmlFor="name">İstifadəçi adı</label>
 
@@ -161,7 +161,7 @@ const SignUp: React.FC<TSignUp> = ({ type, setType }): ReactElement => {
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <div className="flex flex-col gap-y-3 mb-6 relative">
                 <label className="flex justify-between" htmlFor="password">
                   Parol
